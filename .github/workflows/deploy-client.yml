@@ -16,7 +16,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: galvpn/client
+                working-directory: ./client
 
         steps:
             - name: Checkout repository (1)
