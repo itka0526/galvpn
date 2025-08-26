@@ -16,3 +16,12 @@ Last time I used domains and Vercel to host the frontend of the application but 
 ## Not to do's:
 
 -   Do not overthink, just use UI libraries. Simpler the better.
+
+## Instructions:
+
+### Setup Github pages to host the HTML files
+
+-   Go to Github
+-   Find the repository's 'Settings', and go to 'Pages'
+-   Set the 'Source' to 'Github Actions', so we can use the .github/workflows/deploy-client.yml
+    (You can modify YML to suit your needs, i.e. I set the 'Action' to run everytime it detects a change, and it can be manually triggered)
