@@ -1,4 +1,4 @@
-name: Deploy Vite React App to GitHub Pages
+name: Deploy GalVPN's React App to GitHub Pages
 
 on:
     push:
@@ -15,7 +15,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: vpn2/client # 👈 move into your client dir
+                working-directory: galvpn/client
 
         steps:
             - name: Checkout repository
@@ -26,7 +26,7 @@ jobs:
               with:
                   node-version: 20
                   cache: npm
-                  cache-dependency-path: vpn2/client/package-lock.json
+                  cache-dependency-path: galvpn/client/package-lock.json
 
             - name: Install dependencies
               run: npm install
@@ -37,7 +37,7 @@ jobs:
             - name: Upload build artifacts
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: vpn2/client/dist
+                  path: galvpn/client/dist
 
     deploy:
         environment:
