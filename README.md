@@ -1,4 +1,4 @@
-# VPN2
+# GalVPN
 
 ## Description:
 

@@ -5,7 +5,7 @@ import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: "/galvpn/",
+    base: "/client/",
     css: {
         preprocessorOptions: {
             scss: {
