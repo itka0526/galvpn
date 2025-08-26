@@ -3,7 +3,7 @@ name: Deploy GalVPN's React App to GitHub Pages
 on:
     push:
         branches:
-            - main # change if your default branch is different
+            - master
 
 permissions:
     contents: read
