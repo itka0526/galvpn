@@ -11,7 +11,8 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@shared/*": ["../shared/*"]
         },
         "resolveJsonModule": true,
         "skipLibCheck": true,

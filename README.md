@@ -49,3 +49,7 @@ prisma generate
 prisma migrate dev
 prisma db push
 ```
+
+### UI
+
+-   For text use gray-200 and gray-300, and for background use gray-600 and gray-800

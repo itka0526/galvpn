@@ -1,40 +1,40 @@
 // Include Telegram UI styles first to allow our code override the package CSS.
-import '@telegram-apps/telegram-ui/dist/styles.css';
+import "@telegram-apps/telegram-ui/dist/styles.css";
 
-import ReactDOM from 'react-dom/client';
-import { StrictMode } from 'react';
-import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { isTMA, retrieveLaunchParams } from "@telegram-apps/sdk-react";
 
-import { Root } from '@/components/Root.tsx';
-import { EnvUnsupported } from '@/components/EnvUnsupported.tsx';
-import { init } from '@/init.ts';
+import { Root } from "@/components/Root.tsx";
+import { EnvUnsupported } from "@/components/EnvUnsupported.tsx";
+import { init } from "@/init.ts";
 
-import './index.css';
+import "./index.css";
+import config from "./config";
 
-// Mock the environment in case, we are outside Telegram.
-import './mockEnv.ts';
-
-const root = ReactDOM.createRoot(document.getElementById('root')!);
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 try {
-  const launchParams = retrieveLaunchParams();
-  const { tgWebAppPlatform: platform } = launchParams;
-  const debug = (launchParams.tgWebAppStartParam || '').includes('platformer_debug')
-    || import.meta.env.DEV;
+    // If not TMA just redirect user to Telegram Bot only in production
+    if (!(await isTMA("complete")) && !import.meta.env.DEV) {
+        window.location.href = config.botLink;
+    }
+    const launchParams = retrieveLaunchParams();
+    const { tgWebAppPlatform: platform } = launchParams;
+    const debug = (launchParams.tgWebAppStartParam || "").includes("platformer_debug") || import.meta.env.DEV;
 
-  // Configure all application dependencies.
-  await init({
-    debug,
-    eruda: debug && ['ios', 'android'].includes(platform),
-    mockForMacOS: platform === 'macos',
-  })
-    .then(() => {
-      root.render(
-        <StrictMode>
-          <Root/>
-        </StrictMode>,
-      );
+    // Configure all application dependencies.
+    await init({
+        debug,
+        eruda: debug && ["ios", "android"].includes(platform),
+        mockForMacOS: platform === "macos",
+    }).then(() => {
+        root.render(
+            <StrictMode>
+                <Root />
+            </StrictMode>
+        );
     });
 } catch (e) {
-  root.render(<EnvUnsupported/>);
+    root.render(<EnvUnsupported />);
 }

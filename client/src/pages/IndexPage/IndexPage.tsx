@@ -1,37 +1,36 @@
-import { Section, Cell, Image, List } from "@telegram-apps/telegram-ui";
-import type { FC } from "react";
-
-import { Link } from "@/components/Link/Link.tsx";
+import { useEffect, type FC } from "react";
 import { Page } from "@/components/Page.tsx";
-
-import tonSvg from "./ton.svg";
+import { HttpStatusCode } from "axios";
+import Lottie from "lottie-react";
+import fireAnimation from "../../../assets/fire.json";
+import { useNavigate } from "react-router-dom";
+import myAxios from "@/myAxios";
 
 export const IndexPage: FC = () => {
+    const navigate = useNavigate();
+
+    async function HandleUser() {
+        try {
+            const resp = await myAxios.post("/users");
+            if (resp.status === HttpStatusCode.Ok) navigate("/dashboard");
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        HandleUser();
+    }, []);
+
     return (
         <Page back={false}>
-            <List>
-                <Section
-                    header="Features"
-                    footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
-                >
-                    <Link to="/ton-connect">
-                        <Cell before={<Image src={tonSvg} style={{ backgroundColor: "#007AFF" }} />} subtitle="Connect your TON wallet">
-                            TON Connect
-                        </Cell>
-                    </Link>
-                </Section>
-                <Section header="Application Launch Data" footer="These pages help developer to learn more about current launch information">
-                    <Link to="/init-data">
-                        <Cell subtitle="User data, chat information, technical data">Init Data</Cell>
-                    </Link>
-                    <Link to="/launch-params">
-                        <Cell subtitle="Platform identifier, Mini Apps version, etc.">Launch Parameters</Cell>
-                    </Link>
-                    <Link to="/theme-params">
-                        <Cell subtitle="Telegram application palette information">Theme Parameters</Cell>
-                    </Link>
-                </Section>
-            </List>
+            <main className="bg-primary flex items-center justify-center flex-1 h-full">
+                <div className="flex flex-col w-1/3 gap-4">
+                    <Lottie animationData={fireAnimation} loop />
+                    {/* TODO: i18 */}
+                    <h2 className="ml-2 text-lg text-center text-gray-300">Please wait...</h2>
+                </div>
+            </main>
         </Page>
     );
 };

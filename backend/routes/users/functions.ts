@@ -1,24 +1,26 @@
 import prisma from "../../db";
-import { User } from "../../generated/prisma";
+import { User } from "@shared/prisma";
 
 type CreateUserArgs = {
     telegramID: User["telegramID"];
     activeTill: User["activeTill"];
     banned?: User["banned"];
+    preferedLanguage?: User["preferedLanguage"];
 };
 
 type ReadUserArgs = { telegramID: User["telegramID"] };
 
-type UpdateUserArgs = { telegramID: User["telegramID"]; activeTill: User["activeTill"] };
+type ProlongUserArgs = { telegramID: User["telegramID"]; activeTill: User["activeTill"] };
 
 type DeleteUserArgs = { telegramID: User["telegramID"] };
 
-async function createUser({ telegramID, activeTill, banned = false }: CreateUserArgs) {
+async function createUser({ telegramID, activeTill, banned = false, preferedLanguage = "en" }: CreateUserArgs) {
     const user = await prisma.user.create({
         data: {
             telegramID,
             activeTill,
             banned,
+            preferedLanguage,
         },
     });
     return user;
@@ -31,7 +33,7 @@ async function readUser({ telegramID }: ReadUserArgs) {
     return user;
 }
 
-async function updateUser({ telegramID, activeTill }: UpdateUserArgs) {
+async function ProlongUser({ telegramID, activeTill }: ProlongUserArgs) {
     const user = await prisma.user.update({
         where: { telegramID },
         data: { activeTill },
@@ -46,4 +48,4 @@ async function deleteUser({ telegramID }: DeleteUserArgs) {
     return user;
 }
 
-export { createUser, readUser, updateUser, deleteUser };
+export { createUser, readUser, ProlongUser, deleteUser };
