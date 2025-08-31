@@ -3,6 +3,7 @@ import { validate, parse, InitData, isExpiredError } from "@telegram-apps/init-d
 import config from "../config";
 import { CustomResponse } from "../types";
 import { setInitData } from "../functions";
+import { UnauthorizedError } from "telegram/errors";
 
 const TMA_authMiddleware: RequestHandler = (req, res: CustomResponse, next) => {
     // We expect passing init data in the Authorization header in the following format:
@@ -23,9 +24,11 @@ const TMA_authMiddleware: RequestHandler = (req, res: CustomResponse, next) => {
             setInitData(res, parse(authData) as InitData);
             return next();
         } catch (error) {
+            if (error instanceof UnauthorizedError) {
+                return res.status(418).json({ message: "Unauthorized. Please restart the app." });
+            }
             if (isExpiredError(error)) {
                 // TODO: i18
-                console.log("aksfl");
                 return res.status(418).json({ message: "Please restart the app." });
             }
             return next(error);

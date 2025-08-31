@@ -5,14 +5,18 @@ import cors from "cors";
 import { TMA_authMiddleware } from "./middleware/auth";
 import { defaultErrorMiddleware } from "./middleware/error";
 import keysRouter from "./routes/keys/keys";
+import "./cron";
+import paymentRouter from "./routes/payment/payment";
+import { webhookCallback } from "grammy";
+import { bot } from "./bot/bot";
 
 const app = express();
 
 app.use(express.json());
+app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
 
 app.use(
     cors({
-        // Can use 172, 10, 192 classes because they are local network classes
         origin:
             config.nodeEnv === "development"
                 ? [
@@ -33,9 +37,10 @@ app.use(TMA_authMiddleware);
 
 app.use(usersRouter);
 app.use(keysRouter);
+app.use(paymentRouter);
 
 app.use(defaultErrorMiddleware);
 
-app.listen(config.port, () => {
+app.listen(config.port, async () => {
     console.log(`Server is running on port ${config.port}...`);
 });

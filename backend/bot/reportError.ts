@@ -2,7 +2,7 @@ import config from "../config";
 import { bot } from "./bot";
 
 const formatError = (s: string) => `
-# ${new Date().toLocaleString("en", { dateStyle: "full", timeStyle: "short" }).toUpperCase()}
+<blockquote>${new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" }).toUpperCase()}</blockquote>
 ${s}
 `;
 

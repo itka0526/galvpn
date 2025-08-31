@@ -13,11 +13,12 @@ const config = {
     BOT_TOKEN: process.env["BOT_TOKEN"] as string,
     BOT_API_ID: process.env["BOT_API_ID"] as string,
     BOT_API_HASH: process.env["BOT_API_HASH"] as string,
+    BOT_WEBHOOK_PATH: process.env["BOT_WEBHOOK_PATH"] as string,
     adminID: "5434394300",
 };
 
-if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH) {
-    throw new Error("BOT_TOKEN | TELEGRAM_BOT_API_ID | TELEGRAM_BOT_API_HASH is missing.");
+if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH || !config.BOT_WEBHOOK_PATH) {
+    throw new Error("BOT_TOKEN | TELEGRAM_BOT_API_ID | TELEGRAM_BOT_API_HASH | BOT_WEBHOOK_PATH is missing.");
 }
 
 export default config;

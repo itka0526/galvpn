@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Key } from "@shared/prisma";
 import { ConfigItem } from "./components/config-item";
+import { Link } from "react-router-dom";
 
 const itemClasses = "flex flex-col justify-center items-center px-4 py-2 select-none relative transition-all";
 
@@ -117,10 +118,10 @@ export const DashboardPage = () => {
                         </button>
 
                         {/* TODO: i18 */}
-                        <div className={cn(itemClasses)}>
+                        <Link className={cn(itemClasses)} to="/payment">
                             <BadgeDollarSign className="stroke-gray-300 m-0" size={28} />
                             <span className="text-sm font-medium text-center text-gray-300">Payment</span>
-                        </div>
+                        </Link>
 
                         {/* TODO: i18 */}
                         <div className={cn(itemClasses)}>

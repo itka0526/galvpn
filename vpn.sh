@@ -1210,11 +1210,6 @@ enable_client() {
 	# Uncomment AllowedIPs in config file
 	sed -i "/^# BEGIN_PEER $client$/,/^# END_PEER $client$/s/^# \(AllowedIPs.*\)$/\1/" "$WG_CONF"
 
-	# Extract AllowedIPs (now uncommented)
-	allowed_ips=$(sed -n "/^# BEGIN_PEER $client$/,/^# END_PEER $client$/p" "$WG_CONF" \
-		| grep '^AllowedIPs' \
-		| awk '{print $3}')
-
 	# Re-add the peer to the live interface
 	wg set wg0 peer "$(sed -n "/^# BEGIN_PEER $client$/,\$p" "$WG_CONF" | grep -m 1 PublicKey | cut -d " " -f 3)" allowed-ips "$(sed -n "/^# BEGIN_PEER $client$/,/^# END_PEER $client$/p" "$WG_CONF" | grep -m1 '^AllowedIPs' | cut -d '=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]//g')"
 	echo "Client '$client' has been enabled."

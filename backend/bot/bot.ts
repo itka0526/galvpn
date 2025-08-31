@@ -10,4 +10,6 @@ if (config.nodeEnv === "development") {
     pmBot.use(generateUpdateMiddleware());
 }
 
+import "./payment/response";
+
 export { bot, pmBot };
