@@ -19,6 +19,7 @@ const config = {
     referralB: 14,
     SSLKeyPath: process.env["SSL_KEY_PATH"],
     SSLCertPath: process.env["SSL_CERT_PATH"],
+    domain: process.env["DOMAIN"],
 };
 
 if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH || !config.BOT_WEBHOOK_PATH) {

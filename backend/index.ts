@@ -51,6 +51,11 @@ if (config.port === 443) {
         throw Error("SSL config missing...");
     }
     https.createServer({ cert: fs.readFileSync(config.SSLCertPath), key: fs.readFileSync(config.SSLKeyPath) }, app).listen(config.port, async () => {
+        if (!config.domain) throw new Error("Domain missing...");
+        // Set telegram webhook
+        if (await bot.api.setWebhook(`https://${config.domain}/bot`)) {
+            console.log("Telegram webhook domain set: ", config.domain);
+        }
         console.log(`HTTPS server is running on port ${config.port}...`);
     });
 } else {
