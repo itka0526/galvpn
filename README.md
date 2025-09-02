@@ -59,3 +59,16 @@ prisma db push
 ```
 curl "https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://YOUR_URL/bot"
 ```
+
+## Setup SSL
+
+-   Go to your DNS provider and create A/AAAA records that point to your server's IPv4/IPv6. Wait till it propagates properly.
+-   Then install Certbot using the following commands
+
+```
+sudo apt install python3 python3-dev python3-venv libaugeas-dev gcc # setup
+sudo python3 -m venv /opt/certbot/ # rm previous installations
+sudo /opt/certbot/bin/pip install --upgrade pip # install
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot # prepare
+sudo certbot certonly --standalone # must open port 80
+```

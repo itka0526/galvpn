@@ -10,6 +10,8 @@ import paymentRouter from "./routes/payment/payment";
 import { webhookCallback } from "grammy";
 import { bot } from "./bot/bot";
 import referralRouter from "./routes/referral/referral";
+import https from "https";
+import http from "http";
 
 const app = express();
 
@@ -43,6 +45,12 @@ app.use(referralRouter);
 
 app.use(defaultErrorMiddleware);
 
-app.listen(config.port, async () => {
-    console.log(`Server is running on port ${config.port}...`);
-});
+if (config.port === 443) {
+    https.createServer(app).listen(config.port, config.port, async () => {
+        console.log(`HTTPS server is running on port ${config.port}...`);
+    });
+} else {
+    http.createServer(app).listen(config.port, config.port, async () => {
+        console.log(`HTTP server is running on port ${config.port}...`);
+    });
+}
