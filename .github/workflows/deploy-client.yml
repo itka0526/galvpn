@@ -36,6 +36,8 @@ jobs:
 
             - name: Build project (4)
               run: npm run build
+              env:
+                  PROD_URL: ${{ secrets.secrets }}
 
             - name: Upload build artifacts (5)
               uses: actions/upload-pages-artifact@v3
