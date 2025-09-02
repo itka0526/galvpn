@@ -4,15 +4,9 @@
         "module": "commonjs",
         "outDir": "./dist",
         "rootDir": "./",
-
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-
-        "paths": {
-            "@shared/*": ["../shared/*"]
-        },
-
         /* Type Checking */
         "strict": true /* Enable all strict type-checking options. */,
         "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
@@ -35,6 +29,5 @@
         "allowUnusedLabels": true /* Disable error reporting for unused labels. */,
         "allowUnreachableCode": true /* Disable error reporting for unreachable code. */
     },
-
     "exclude": ["node_modules"]
 }

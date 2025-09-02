@@ -979,10 +979,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     keys: number
+    referrals: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     keys?: boolean | UserCountOutputTypeCountKeysArgs
+    referrals?: boolean | UserCountOutputTypeCountReferralsArgs
   }
 
   // Custom InputTypes
@@ -1001,6 +1003,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountKeysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: KeyWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReferralsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -1025,6 +1034,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     banned: boolean | null
+    referralCode: string | null
+    referrerId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1034,6 +1045,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     banned: boolean | null
+    referralCode: string | null
+    referrerId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1043,6 +1056,8 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     banned: number
+    referralCode: number
+    referrerId: number
     _all: number
   }
 
@@ -1054,6 +1069,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     banned?: true
+    referralCode?: true
+    referrerId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1063,6 +1080,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     banned?: true
+    referralCode?: true
+    referrerId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1072,6 +1091,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     banned?: true
+    referralCode?: true
+    referrerId?: true
     _all?: true
   }
 
@@ -1154,6 +1175,8 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     banned: boolean
+    referralCode: string
+    referrerId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1180,7 +1203,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     banned?: boolean
+    referralCode?: boolean
+    referrerId?: boolean
     keys?: boolean | User$keysArgs<ExtArgs>
+    referrer?: boolean | User$referrerArgs<ExtArgs>
+    referrals?: boolean | User$referralsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1191,6 +1218,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     banned?: boolean
+    referralCode?: boolean
+    referrerId?: boolean
+    referrer?: boolean | User$referrerArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1200,6 +1230,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     banned?: boolean
+    referralCode?: boolean
+    referrerId?: boolean
+    referrer?: boolean | User$referrerArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1209,20 +1242,30 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     banned?: boolean
+    referralCode?: boolean
+    referrerId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"telegramID" | "preferedLanguage" | "activeTill" | "createdAt" | "updatedAt" | "banned", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"telegramID" | "preferedLanguage" | "activeTill" | "createdAt" | "updatedAt" | "banned" | "referralCode" | "referrerId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     keys?: boolean | User$keysArgs<ExtArgs>
+    referrer?: boolean | User$referrerArgs<ExtArgs>
+    referrals?: boolean | User$referralsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referrer?: boolean | User$referrerArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referrer?: boolean | User$referrerArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
       keys: Prisma.$KeyPayload<ExtArgs>[]
+      referrer: Prisma.$UserPayload<ExtArgs> | null
+      referrals: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       telegramID: string
@@ -1231,6 +1274,8 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       banned: boolean
+      referralCode: string
+      referrerId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1626,6 +1671,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     keys<T extends User$keysArgs<ExtArgs> = {}>(args?: Subset<T, User$keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referrer<T extends User$referrerArgs<ExtArgs> = {}>(args?: Subset<T, User$referrerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    referrals<T extends User$referralsArgs<ExtArgs> = {}>(args?: Subset<T, User$referralsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1661,6 +1708,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly banned: FieldRef<"User", 'Boolean'>
+    readonly referralCode: FieldRef<"User", 'String'>
+    readonly referrerId: FieldRef<"User", 'String'>
   }
     
 
@@ -1908,6 +1957,10 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1978,6 +2031,10 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2068,6 +2125,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: KeyScalarFieldEnum | KeyScalarFieldEnum[]
+  }
+
+  /**
+   * User.referrer
+   */
+  export type User$referrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * User.referrals
+   */
+  export type User$referralsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -3196,7 +3296,9 @@ export namespace Prisma {
     activeTill: 'activeTill',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    banned: 'banned'
+    banned: 'banned',
+    referralCode: 'referralCode',
+    referrerId: 'referrerId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3219,6 +3321,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3281,7 +3391,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     banned?: BoolFilter<"User"> | boolean
+    referralCode?: StringFilter<"User"> | string
+    referrerId?: StringNullableFilter<"User"> | string | null
     keys?: KeyListRelationFilter
+    referrer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    referrals?: UserListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3291,11 +3405,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     banned?: SortOrder
+    referralCode?: SortOrder
+    referrerId?: SortOrderInput | SortOrder
     keys?: KeyOrderByRelationAggregateInput
+    referrer?: UserOrderByWithRelationInput
+    referrals?: UserOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     telegramID?: string
+    referralCode?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -3304,8 +3423,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     banned?: BoolFilter<"User"> | boolean
+    referrerId?: StringNullableFilter<"User"> | string | null
     keys?: KeyListRelationFilter
-  }, "telegramID" | "telegramID">
+    referrer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    referrals?: UserListRelationFilter
+  }, "telegramID" | "telegramID" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
     telegramID?: SortOrder
@@ -3314,6 +3436,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     banned?: SortOrder
+    referralCode?: SortOrder
+    referrerId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3329,6 +3453,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     banned?: BoolWithAggregatesFilter<"User"> | boolean
+    referralCode?: StringWithAggregatesFilter<"User"> | string
+    referrerId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type KeyWhereInput = {
@@ -3395,7 +3521,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     banned?: boolean
+    referralCode: string
     keys?: KeyCreateNestedManyWithoutUserInput
+    referrer?: UserCreateNestedOneWithoutReferralsInput
+    referrals?: UserCreateNestedManyWithoutReferrerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3405,7 +3534,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     banned?: boolean
+    referralCode: string
+    referrerId?: string | null
     keys?: KeyUncheckedCreateNestedManyWithoutUserInput
+    referrals?: UserUncheckedCreateNestedManyWithoutReferrerInput
   }
 
   export type UserUpdateInput = {
@@ -3415,7 +3547,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
     keys?: KeyUpdateManyWithoutUserNestedInput
+    referrer?: UserUpdateOneWithoutReferralsNestedInput
+    referrals?: UserUpdateManyWithoutReferrerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3425,7 +3560,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
     keys?: KeyUncheckedUpdateManyWithoutUserNestedInput
+    referrals?: UserUncheckedUpdateManyWithoutReferrerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3435,6 +3573,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     banned?: boolean
+    referralCode: string
+    referrerId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3444,6 +3584,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3453,6 +3594,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type KeyCreateInput = {
@@ -3544,13 +3687,47 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type KeyListRelationFilter = {
     every?: KeyWhereInput
     some?: KeyWhereInput
     none?: KeyWhereInput
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type KeyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3561,6 +3738,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     banned?: SortOrder
+    referralCode?: SortOrder
+    referrerId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3570,6 +3749,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     banned?: SortOrder
+    referralCode?: SortOrder
+    referrerId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3579,6 +3760,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     banned?: SortOrder
+    referralCode?: SortOrder
+    referrerId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3628,6 +3811,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3701,11 +3901,31 @@ export namespace Prisma {
     connect?: KeyWhereUniqueInput | KeyWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutReferralsInput = {
+    create?: XOR<UserCreateWithoutReferralsInput, UserUncheckedCreateWithoutReferralsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferralsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
+    createMany?: UserCreateManyReferrerInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type KeyUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<KeyCreateWithoutUserInput, KeyUncheckedCreateWithoutUserInput> | KeyCreateWithoutUserInput[] | KeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: KeyCreateOrConnectWithoutUserInput | KeyCreateOrConnectWithoutUserInput[]
     createMany?: KeyCreateManyUserInputEnvelope
     connect?: KeyWhereUniqueInput | KeyWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
+    createMany?: UserCreateManyReferrerInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3738,6 +3958,34 @@ export namespace Prisma {
     deleteMany?: KeyScalarWhereInput | KeyScalarWhereInput[]
   }
 
+  export type UserUpdateOneWithoutReferralsNestedInput = {
+    create?: XOR<UserCreateWithoutReferralsInput, UserUncheckedCreateWithoutReferralsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferralsInput
+    upsert?: UserUpsertWithoutReferralsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferralsInput, UserUpdateWithoutReferralsInput>, UserUncheckedUpdateWithoutReferralsInput>
+  }
+
+  export type UserUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutReferrerInput | UserUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: UserCreateManyReferrerInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutReferrerInput | UserUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutReferrerInput | UserUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type KeyUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<KeyCreateWithoutUserInput, KeyUncheckedCreateWithoutUserInput> | KeyCreateWithoutUserInput[] | KeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: KeyCreateOrConnectWithoutUserInput | KeyCreateOrConnectWithoutUserInput[]
@@ -3750,6 +3998,20 @@ export namespace Prisma {
     update?: KeyUpdateWithWhereUniqueWithoutUserInput | KeyUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: KeyUpdateManyWithWhereWithoutUserInput | KeyUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: KeyScalarWhereInput | KeyScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutReferrerInput | UserUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: UserCreateManyReferrerInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutReferrerInput | UserUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutReferrerInput | UserUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutKeysInput = {
@@ -3809,6 +4071,20 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3871,6 +4147,34 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -3920,6 +4224,68 @@ export namespace Prisma {
     data: KeyCreateManyUserInput | KeyCreateManyUserInput[]
   }
 
+  export type UserCreateWithoutReferralsInput = {
+    telegramID: string
+    preferedLanguage?: $Enums.Language
+    activeTill: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean
+    referralCode: string
+    keys?: KeyCreateNestedManyWithoutUserInput
+    referrer?: UserCreateNestedOneWithoutReferralsInput
+  }
+
+  export type UserUncheckedCreateWithoutReferralsInput = {
+    telegramID: string
+    preferedLanguage?: $Enums.Language
+    activeTill: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean
+    referralCode: string
+    referrerId?: string | null
+    keys?: KeyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReferralsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReferralsInput, UserUncheckedCreateWithoutReferralsInput>
+  }
+
+  export type UserCreateWithoutReferrerInput = {
+    telegramID: string
+    preferedLanguage?: $Enums.Language
+    activeTill: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean
+    referralCode: string
+    keys?: KeyCreateNestedManyWithoutUserInput
+    referrals?: UserCreateNestedManyWithoutReferrerInput
+  }
+
+  export type UserUncheckedCreateWithoutReferrerInput = {
+    telegramID: string
+    preferedLanguage?: $Enums.Language
+    activeTill: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean
+    referralCode: string
+    keys?: KeyUncheckedCreateNestedManyWithoutUserInput
+    referrals?: UserUncheckedCreateNestedManyWithoutReferrerInput
+  }
+
+  export type UserCreateOrConnectWithoutReferrerInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+  }
+
+  export type UserCreateManyReferrerInputEnvelope = {
+    data: UserCreateManyReferrerInput | UserCreateManyReferrerInput[]
+  }
+
   export type KeyUpsertWithWhereUniqueWithoutUserInput = {
     where: KeyWhereUniqueInput
     update: XOR<KeyUpdateWithoutUserInput, KeyUncheckedUpdateWithoutUserInput>
@@ -3947,6 +4313,71 @@ export namespace Prisma {
     configFilePath?: StringFilter<"Key"> | string
   }
 
+  export type UserUpsertWithoutReferralsInput = {
+    update: XOR<UserUpdateWithoutReferralsInput, UserUncheckedUpdateWithoutReferralsInput>
+    create: XOR<UserCreateWithoutReferralsInput, UserUncheckedCreateWithoutReferralsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReferralsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReferralsInput, UserUncheckedUpdateWithoutReferralsInput>
+  }
+
+  export type UserUpdateWithoutReferralsInput = {
+    telegramID?: StringFieldUpdateOperationsInput | string
+    preferedLanguage?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+    activeTill?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    keys?: KeyUpdateManyWithoutUserNestedInput
+    referrer?: UserUpdateOneWithoutReferralsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReferralsInput = {
+    telegramID?: StringFieldUpdateOperationsInput | string
+    preferedLanguage?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+    activeTill?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
+    keys?: KeyUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutReferrerInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
+    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutReferrerInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutReferrerInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutReferrerInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    telegramID?: StringFilter<"User"> | string
+    preferedLanguage?: EnumLanguageFilter<"User"> | $Enums.Language
+    activeTill?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    banned?: BoolFilter<"User"> | boolean
+    referralCode?: StringFilter<"User"> | string
+    referrerId?: StringNullableFilter<"User"> | string | null
+  }
+
   export type UserCreateWithoutKeysInput = {
     telegramID: string
     preferedLanguage?: $Enums.Language
@@ -3954,6 +4385,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     banned?: boolean
+    referralCode: string
+    referrer?: UserCreateNestedOneWithoutReferralsInput
+    referrals?: UserCreateNestedManyWithoutReferrerInput
   }
 
   export type UserUncheckedCreateWithoutKeysInput = {
@@ -3963,6 +4397,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     banned?: boolean
+    referralCode: string
+    referrerId?: string | null
+    referrals?: UserUncheckedCreateNestedManyWithoutReferrerInput
   }
 
   export type UserCreateOrConnectWithoutKeysInput = {
@@ -3988,6 +4425,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    referrer?: UserUpdateOneWithoutReferralsNestedInput
+    referrals?: UserUpdateManyWithoutReferrerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKeysInput = {
@@ -3997,6 +4437,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
+    referrals?: UserUncheckedUpdateManyWithoutReferrerNestedInput
   }
 
   export type KeyCreateManyUserInput = {
@@ -4004,6 +4447,16 @@ export namespace Prisma {
     createdAt?: Date | string
     configFile: string
     configFilePath: string
+  }
+
+  export type UserCreateManyReferrerInput = {
+    telegramID: string
+    preferedLanguage?: $Enums.Language
+    activeTill: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean
+    referralCode: string
   }
 
   export type KeyUpdateWithoutUserInput = {
@@ -4024,6 +4477,40 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     configFile?: StringFieldUpdateOperationsInput | string
     configFilePath?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUpdateWithoutReferrerInput = {
+    telegramID?: StringFieldUpdateOperationsInput | string
+    preferedLanguage?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+    activeTill?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    keys?: KeyUpdateManyWithoutUserNestedInput
+    referrals?: UserUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReferrerInput = {
+    telegramID?: StringFieldUpdateOperationsInput | string
+    preferedLanguage?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+    activeTill?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
+    keys?: KeyUncheckedUpdateManyWithoutUserNestedInput
+    referrals?: UserUncheckedUpdateManyWithoutReferrerNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutReferrerInput = {
+    telegramID?: StringFieldUpdateOperationsInput | string
+    preferedLanguage?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
+    activeTill?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: BoolFieldUpdateOperationsInput | boolean
+    referralCode?: StringFieldUpdateOperationsInput | string
   }
 
 

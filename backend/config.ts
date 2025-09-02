@@ -5,7 +5,7 @@ dotenv.config();
 const config = {
     port: Number(process.env["PORT"]) || 4000,
     nodeEnv: process.env["NODE_ENV"] || "development",
-    tmaDomain: "https://itka0526.github.io",
+    CLIENT_ENDPOINT_ADDR: "https://itka0526.github.io",
     freeTrialLength: 14 * 24 * 60 * 60 * 1000,
     DNS: "1.1.1.1",
     keyLimitPerUser: 5,
@@ -15,6 +15,8 @@ const config = {
     BOT_API_HASH: process.env["BOT_API_HASH"] as string,
     BOT_WEBHOOK_PATH: process.env["BOT_WEBHOOK_PATH"] as string,
     adminID: "5434394300",
+    referralA: 30,
+    referralB: 14,
 };
 
 if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH || !config.BOT_WEBHOOK_PATH) {

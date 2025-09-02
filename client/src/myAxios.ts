@@ -10,7 +10,7 @@ const initDataRaw = retrieveRawInitData();
 
 // Set config defaults when creating the instance
 const myAxios = axios.create({
-    baseURL: config.endpointAddr,
+    baseURL: config.BACKEND_ENDPOINT_ADDR,
     withCredentials: true,
 });
 
@@ -26,7 +26,6 @@ myAxios.interceptors.response.use(
                 closeMiniApp();
             }, 2500);
         }
-
         return Promise.reject(error);
     }
 );

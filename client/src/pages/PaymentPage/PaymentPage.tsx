@@ -1,12 +1,8 @@
 import { type FC } from "react";
 import { Page } from "@/components/Page.tsx";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { globalConfig } from "@shared/globalConfig";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 import { AccountDetails } from "./AccountDetails";
-import { TelegramIcon } from "@/components/ui/telegram";
-import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
 import { CheckPaymentButton } from "./CheckPaymentButton";
 
 export const PaymentPage: FC = () => {

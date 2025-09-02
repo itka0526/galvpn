@@ -9,6 +9,7 @@ import "./cron";
 import paymentRouter from "./routes/payment/payment";
 import { webhookCallback } from "grammy";
 import { bot } from "./bot/bot";
+import referralRouter from "./routes/referral/referral";
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(
                       "https://127.0.0.1:5173",
                       "https://localhost:5173",
                   ]
-                : config.tmaDomain, // your Mini App’s domain
+                : config.CLIENT_ENDPOINT_ADDR, // TODO: your Mini App’s domain
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Authorization", "Content-Type"],
         credentials: true,
@@ -38,6 +39,7 @@ app.use(TMA_authMiddleware);
 app.use(usersRouter);
 app.use(keysRouter);
 app.use(paymentRouter);
+app.use(referralRouter);
 
 app.use(defaultErrorMiddleware);
 

@@ -7,6 +7,7 @@ import { ThemeParamsPage } from "@/pages/ThemeParamsPage.tsx";
 import { TONConnectPage } from "@/pages/TONConnectPage/TONConnectPage";
 import { DashboardPage } from "@/pages/DashboardPage/DashboardPage";
 import { PaymentPage } from "@/pages/PaymentPage/PaymentPage";
+import { ReferPage } from "@/pages/ReferPage/ReferPage";
 
 interface Route {
     path: string;
@@ -19,6 +20,7 @@ export const routes: Route[] = [
     { path: "/", Component: IndexPage },
     { path: "/dashboard", Component: DashboardPage },
     { path: "/payment", Component: PaymentPage },
+    { path: "/refer", Component: ReferPage },
 
     { path: "/init-data", Component: InitDataPage, title: "Init Data" },
     { path: "/theme-params", Component: ThemeParamsPage, title: "Theme Params" },

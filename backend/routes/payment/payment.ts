@@ -40,7 +40,7 @@ paymentRouter.post("/payment", async (_, res) => {
         return res.status(200).json({ message: "Please wait till admin replies back." });
     } catch (err) {
         console.error(err);
-        reportError(JSON.stringify(err));
+        reportError(err);
         return res.status(500).json({ message: "Cannot handle request." });
     }
 });

@@ -120,7 +120,9 @@ exports.Prisma.UserScalarFieldEnum = {
   activeTill: 'activeTill',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  banned: 'banned'
+  banned: 'banned',
+  referralCode: 'referralCode',
+  referrerId: 'referrerId'
 };
 
 exports.Prisma.KeyScalarFieldEnum = {
@@ -134,6 +136,11 @@ exports.Prisma.KeyScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Language = exports.$Enums.Language = {
   en: 'en',

@@ -1,18 +1,24 @@
+import { User } from "../../../shared/prisma";
 import prisma from "../../db";
-import { User } from "@shared/prisma";
+import { customAlphabet } from "nanoid";
 
 type CreateUserArgs = {
     telegramID: User["telegramID"];
     activeTill: User["activeTill"];
     banned?: User["banned"];
     preferedLanguage?: User["preferedLanguage"];
+    referrerCode?: User["referralCode"] | undefined;
 };
 
 type ReadUserArgs = { telegramID: User["telegramID"] };
 
 type ProlongUserArgs = { telegramID: User["telegramID"]; activeTill: User["activeTill"] };
 
+type UpdateUserLanguageArgs = { telegramID: User["telegramID"]; preferedLanguage: User["preferedLanguage"] };
+
 type DeleteUserArgs = { telegramID: User["telegramID"] };
+
+const generateReferralCode = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 6);
 
 async function createUser({ telegramID, activeTill, banned = false, preferedLanguage = "en" }: CreateUserArgs) {
     const user = await prisma.user.create({
@@ -21,6 +27,7 @@ async function createUser({ telegramID, activeTill, banned = false, preferedLang
             activeTill,
             banned,
             preferedLanguage,
+            referralCode: generateReferralCode(),
         },
     });
     return user;
@@ -41,6 +48,14 @@ async function ProlongUser({ telegramID, activeTill }: ProlongUserArgs) {
     return user;
 }
 
+async function UpdateUserLanguage({ telegramID, preferedLanguage }: UpdateUserLanguageArgs) {
+    const user = await prisma.user.update({
+        where: { telegramID },
+        data: { preferedLanguage },
+    });
+    return user;
+}
+
 async function deleteUser({ telegramID }: DeleteUserArgs) {
     const user = await prisma.user.delete({
         where: { telegramID },
@@ -48,4 +63,4 @@ async function deleteUser({ telegramID }: DeleteUserArgs) {
     return user;
 }
 
-export { createUser, readUser, ProlongUser, deleteUser };
+export { createUser, readUser, ProlongUser, deleteUser, UpdateUserLanguage };

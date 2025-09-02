@@ -6,7 +6,7 @@ const exec = util.promisify(child_process.exec);
 import prisma from "../../db";
 import { randomUUID } from "crypto";
 import config from "../../config";
-import { Key, User } from "@shared/prisma";
+import { Key, User } from "../../../shared/prisma";
 import { reportError } from "../../bot/reportError";
 
 /**
@@ -127,7 +127,7 @@ const deleteKey = async ({ telegramID, keyID }: { telegramID: User["telegramID"]
         // TODO: i18
         return "Key is deleted.";
     } catch (err) {
-        reportError(JSON.stringify(err));
+        reportError(err);
         // TODO: i18
         return "Unknown error (F1)";
     }

@@ -20,6 +20,12 @@ export const IndexPage: FC = () => {
 
     useEffect(() => {
         HandleUser();
+
+        const interval = setInterval(() => {
+            HandleUser();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (

@@ -3,22 +3,22 @@
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Copy, Download, LucideQrCode, Trash2, XIcon } from "lucide-react";
+import { ArrowDownUp, Calendar, ChartPie, Download, LucideQrCode, Trash2, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import QRCode from "react-qr-code";
-import { useCopy } from "../components/copy";
 import toast from "react-hot-toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Key } from "@shared/prisma";
 import myAxios from "@/myAxios";
 import { cn } from "@/helpers/cn";
 import { HttpStatusCode } from "axios";
+import { KeyStatsType } from "@shared/types";
+import { humanFileSize } from "./human-readable-file-size";
 
 type ConfigItemProps = { item: Key; setUserKeys: Dispatch<SetStateAction<Key[]>> };
 
 export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKeys }: ConfigItemProps) {
     const [open, setOpen] = useState(false);
-    const { copied, copyToClipboard } = useCopy();
 
     const [deletingKey, setDeletingKey] = useState(false);
 
@@ -59,6 +59,44 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
         } catch (err) {
             console.error(err);
             toast.error("Unknown error (DK2)");
+        }
+    };
+
+    const checkStats = async () => {
+        try {
+            const res = await myAxios.get("/keys/stats", { params: { keyID: id } });
+
+            if (res.status === HttpStatusCode.Ok) {
+                const stats = res.data as KeyStatsType;
+
+                toast.success(
+                    <span className="font-semibold">
+                        {humanFileSize(stats.transfer.in, true)} received, <br /> {humanFileSize(stats.transfer.out, true)} sent{" "}
+                    </span>,
+                    { icon: <ArrowDownUp />, duration: 3000 }
+                );
+
+                toast.success(
+                    stats.latest > 0 ? (
+                        <p>
+                            Key was last used <br />
+                            <span className="font-semibold">
+                                {new Date(stats.latest * 1000).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" })}
+                            </span>
+                        </p>
+                    ) : (
+                        <p>Key hasn't been used for a long time</p>
+                    ),
+                    { icon: <Calendar />, duration: 2500 }
+                );
+
+                console.log(stats);
+            } else {
+                toast.error(res.data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("Unknown error (DK3)");
         }
     };
 
@@ -104,18 +142,6 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
 
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button onClick={() => copyToClipboard(configFile)} disabled={deletingKey}>
-                                    {copied ? <Check /> : <Copy />}
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                {/* TODO: i18 */}
-                                <p className="text-sm text-gray-400">{copied ? "Copied" : "Copy"} </p>
-                            </TooltipContent>
-                        </Tooltip>
-
-                        <Tooltip>
-                            <TooltipTrigger asChild>
                                 <Button onClick={downloadKey} disabled={deletingKey}>
                                     <Download />
                                 </Button>
@@ -124,6 +150,18 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                                 {/* TODO: i18 */}
 
                                 <p className="text-sm text-gray-400">Download</p>
+                            </TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={checkStats} disabled={deletingKey}>
+                                    <ChartPie />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {/* TODO: i18 */}
+                                <p className="text-sm text-gray-400">Show stats</p>
                             </TooltipContent>
                         </Tooltip>
 

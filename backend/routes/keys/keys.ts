@@ -5,7 +5,11 @@ import prisma from "../../db";
 import { bot } from "../../bot/bot";
 import { InputFile } from "grammy";
 import { reportError } from "../../bot/reportError";
+import util from "util";
+import child_process from "child_process";
+import config from "../../config";
 
+const exec = util.promisify(child_process.exec);
 const keysRouter = Router();
 
 keysRouter.post("/keys", async (_, res) => {
@@ -42,13 +46,17 @@ keysRouter.get("/keys", async (_, res) => {
         return res.status(418).json({ message: "Bad request. Please restart the app." });
     }
 
-    const keys = await prisma.key.findMany({
-        where: {
-            userTelegramID: initData.user.id.toString(),
-        },
-    });
-
-    return res.status(200).json({ keys });
+    try {
+        const keys = await prisma.key.findMany({
+            where: {
+                userTelegramID: initData.user.id.toString(),
+            },
+        });
+        return res.status(200).json({ keys });
+    } catch (err) {
+        reportError(err, "/keys GET");
+        return res.status(500).json({ message: "Server failed to respond." });
+    }
 });
 
 keysRouter.delete("/keys", async (req, res) => {
@@ -78,7 +86,7 @@ keysRouter.delete("/keys", async (req, res) => {
         }
 
         if (message === "Unknown error (F1)") {
-            reportError(JSON.stringify(message));
+            reportError(message);
             return res.status(500).json({ message });
         }
 
@@ -115,9 +123,55 @@ keysRouter.get("/keys/download", async (req, res) => {
         // TODO: i18
         return res.status(200).json({ message: "Please check your telegram chat." });
     } catch (err) {
-        reportError(JSON.stringify(err));
+        reportError(err);
         // TODO: i18
         return res.status(500).json({ message: "Unknown error (K1)" });
+    }
+});
+
+keysRouter.get("/keys/stats", async (req, res) => {
+    const initData = getInitData(res);
+
+    if (!initData || !initData.user) {
+        // TODO: i18
+        return res.status(418).json({ message: "Bad request. Please restart the app." });
+    }
+
+    const rawKeyId = req.query["keyID"];
+
+    if (!rawKeyId || isNaN(Number(rawKeyId))) {
+        // TODO: i18
+        return res.status(400).json({ message: "Bad request." });
+    }
+
+    try {
+        const key = await prisma.key.findUnique({ where: { userTelegramID: initData.user.id.toString(), id: Number(rawKeyId) } });
+
+        if (!key) {
+            // TODO: i18
+            return res.status(400).json({ message: "Key is missing." });
+        }
+        const fileName = key.configFilePath.split("/").pop();
+        // TODO: i18
+        if (!fileName) return res.status(500).json({ message: "Cannot process key." });
+        const keyName = fileName.split(".conf")[0];
+        // TODO: i18
+        if (!fileName) return res.status(500).json({ message: "Cannot process key." });
+
+        let keyStats: string;
+
+        if (config.nodeEnv !== "development") {
+            const { stdout } = await exec(`sudo bash /root/galvpn/vpn.sh --showclientstats ${keyName}`);
+            keyStats = stdout;
+        } else {
+            // Template
+            keyStats = '{"keyName":"admin","latest":1756661980,"transfer":{"in":127600904,"out":2656002760}}';
+        }
+        return res.status(200).json(JSON.parse(keyStats));
+    } catch (err) {
+        reportError(err);
+        // TODO: i18
+        return res.status(500).json({ message: "Unknown error (K2)" });
     }
 });
 

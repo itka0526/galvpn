@@ -109,6 +109,12 @@ parse_args() {
 				auto=1
 				shift
 				;;
+			--showclientstats)
+				show_peer_stats_flag=1
+				unsanitized_client="$2"
+				shift
+				shift
+				;;
 			--enableclient)
 				enable_client_flag=1
 				unsanitized_client="$2"
@@ -242,7 +248,12 @@ check_args() {
 			exiterr "Invalid client name, or client does not exist."
 		fi
 	fi
-
+	if [ "$show_peer_stats_flag" = 1 ]; then
+		set_client_name
+		if [ -z "$client" ] || ! grep -q "^# BEGIN_PEER $client$" "$WG_CONF"; then
+			exiterr "Invalid client name, or client does not exist."
+		fi
+	fi
 	if [ -n "$server_addr" ] && { ! check_dns_name "$server_addr" && ! check_ip "$server_addr"; }; then
 		exiterr "Invalid server address. Must be a fully qualified domain name (FQDN) or an IPv4 address."
 	fi
@@ -1078,8 +1089,9 @@ select_menu_option() {
 	echo "   6) Exit"
 	echo "   7) Enable client"
 	echo "   8) Disable client"
+	echo "   9) Show stats"
 	read -rp "Option: " option
-	until [[ "$option" =~ ^[1-8]$ ]]; do
+	until [[ "$option" =~ ^[1-9]$ ]]; do
 		echo "$option: invalid selection."
 		read -rp "Option: " option
 	done
@@ -1215,6 +1227,31 @@ enable_client() {
 	echo "Client '$client' has been enabled."
 }
 
+show_peer_stats() {
+	if ! grep -q "^# BEGIN_PEER $client$" "$WG_CONF"; then
+		exiterr "$client does not exist."
+	fi
+
+	local stats lh rx tx timestr latest_json pubkey
+
+	pubkey=$(sed -n "/^# BEGIN_PEER $client$/,\$p" "$WG_CONF" | grep -m 1 PublicKey | cut -d " " -f 3)
+
+	# Extract transfer stats (bytes only)
+	line=$(wg show wg0 transfer | grep "$pubkey")
+	rx=$(echo "$line" | cut -f2)
+	tx=$(echo "$line" | cut -f3)
+
+	# Extract latest handshake (unix timestamp)
+	lh=$(wg show wg0 latest-handshakes | grep "$pubkey" | cut -f2)
+
+	rx=${rx:-0}
+	tx=${tx:-0}
+	lh=${lh:-0}
+
+	printf '{"keyName":"%s","latest":%s,"transfer":{"in":%s,"out":%s}}\n' \
+		"$client" "$lh" "$rx" "$tx"
+}
+
 print_client_removed() {
 	echo
 	echo "$client removed!"
@@ -1302,6 +1339,7 @@ WG_CONF="/etc/wireguard/wg0.conf"
 
 auto=0
 assume_yes=0
+show_peer_stats_flag=0
 enable_client_flag=0
 disable_client_flag=0
 add_client=0
@@ -1363,6 +1401,11 @@ fi
 
 if [ "$disable_client_flag" = 1 ]; then
 	disable_client
+	exit 0
+fi
+
+if [ "$show_peer_stats_flag" = 1 ]; then
+	show_peer_stats
 	exit 0
 fi
 
@@ -1510,6 +1553,12 @@ else
 			check_clients
 			select_client_to "Disable client"
 			disable_client
+			exit 0
+		;;
+		9)
+			check_clients
+			select_client_to "Show stats"
+			show_peer_stats
 			exit 0
 		;;
 	esac

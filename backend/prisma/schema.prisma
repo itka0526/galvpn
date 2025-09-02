@@ -9,6 +9,11 @@ generator client {
   output   = "../../shared/prisma"
 }
 
+generator dist {
+  provider = "prisma-client-js"
+  output   = "../shared/prisma"
+}
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -32,6 +37,13 @@ model User {
   banned           Boolean  @default(false)
   // Store
   keys             Key[]
+
+  referralCode String @unique
+
+  // referral system
+  referrerId String?
+  referrer   User?   @relation("UserReferrals", fields: [referrerId], references: [telegramID])
+  referrals  User[]  @relation("UserReferrals")
 
   @@index([telegramID])
 }
