@@ -10,15 +10,15 @@ const myAxios = axios.create({
     withCredentials: true,
 });
 
-try {
-    if (import.meta.env.DEV) {
-        await generateMockEnv();
-        const initDataRaw = retrieveRawInitData();
-        myAxios.defaults.headers.common["Authorization"] = `tma ${initDataRaw}`;
-    }
-} catch {}
-
 // TMA authorization
+if (import.meta.env.PROD) {
+    myAxios.defaults.headers.common["Authorization"] = `tma ${retrieveRawInitData()}`;
+} else {
+    try {
+        await generateMockEnv();
+        myAxios.defaults.headers.common["Authorization"] = `tma ${retrieveRawInitData()}`;
+    } catch {}
+}
 
 myAxios.interceptors.response.use(
     (response) => response,
