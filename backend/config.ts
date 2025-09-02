@@ -5,7 +5,7 @@ dotenv.config();
 const config = {
     port: Number(process.env["PORT"]) || 4000,
     nodeEnv: process.env["NODE_ENV"] || "development",
-    CLIENT_ENDPOINT_ADDR: "https://itka0526.github.io",
+    CLIENT_ENDPOINT_ADDR: process.env["CLIENT_ENDPOINT_ADDR"],
     freeTrialLength: 14 * 24 * 60 * 60 * 1000,
     DNS: "1.1.1.1",
     keyLimitPerUser: 5,
