@@ -46,11 +46,11 @@ app.use(referralRouter);
 app.use(defaultErrorMiddleware);
 
 if (config.port === 443) {
-    https.createServer(app).listen(config.port, config.port, async () => {
+    https.createServer(app).listen(config.port, async () => {
         console.log(`HTTPS server is running on port ${config.port}...`);
     });
 } else {
-    http.createServer(app).listen(config.port, config.port, async () => {
+    http.createServer(app).listen(config.port, async () => {
         console.log(`HTTP server is running on port ${config.port}...`);
     });
 }

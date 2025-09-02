@@ -17,6 +17,8 @@ const config = {
     adminID: "5434394300",
     referralA: 30,
     referralB: 14,
+    SSLKeyPath: process.env["SSL_KEY_PATH"],
+    SSLCertPath: process.env["SSL_CERT_PATH"],
 };
 
 if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH || !config.BOT_WEBHOOK_PATH) {
