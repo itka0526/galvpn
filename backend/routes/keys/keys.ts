@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createKey, deleteKey } from "./functions";
-import { getInitData } from "../../functions";
+import { extractClientName, getInitData } from "../../functions";
 import prisma from "../../db";
 import { bot } from "../../bot/bot";
 import { InputFile } from "grammy";
@@ -151,17 +151,12 @@ keysRouter.get("/keys/stats", async (req, res) => {
             // TODO: i18
             return res.status(400).json({ message: "Key is missing." });
         }
-        const fileName = key.configFilePath.split("/").pop();
-        // TODO: i18
-        if (!fileName) return res.status(500).json({ message: "Cannot process key." });
-        const keyName = fileName.split(".conf")[0];
-        // TODO: i18
-        if (!fileName) return res.status(500).json({ message: "Cannot process key." });
+        const clientName = extractClientName(key.configFilePath);
 
         let keyStats: string;
 
         if (config.nodeEnv !== "development") {
-            const { stdout } = await exec(`sudo bash /root/galvpn/vpn.sh --showclientstats ${keyName}`);
+            const { stdout } = await exec(`sudo bash /root/galvpn/vpn.sh --showclientstats ${clientName}`);
             keyStats = stdout;
         } else {
             // Template

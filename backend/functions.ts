@@ -10,4 +10,17 @@ function getInitData(res: CustomResponse): InitData | undefined {
     return res.locals.initData;
 }
 
-export { setInitData, getInitData };
+function extractClientName(configFilePath: string) {
+    const matchClientName = /user-[^\.]+/gi;
+
+    const matches = matchClientName.exec(configFilePath);
+
+    if (matches && matches.length) {
+        return matches[0];
+    } else {
+        // TODO: i18
+        throw Error("Client name not found.");
+    }
+}
+
+export { setInitData, getInitData, extractClientName };

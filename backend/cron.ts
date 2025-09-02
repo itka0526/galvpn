@@ -6,6 +6,7 @@ import { reportError } from "./bot/reportError";
 import { expirationMessage, soonToBeExpiredMessage } from "./messages";
 import child_process from "child_process";
 import util from "util";
+import { extractClientName } from "./functions";
 
 const exec = util.promisify(child_process.exec);
 
@@ -27,16 +28,11 @@ cron.schedule("* 0/6 * * *", async () => {
         });
 
         // Freeze active keys
-        const matchClientName = /user-[^\.]+/gi;
-
         if (config.nodeEnv !== "development") {
             for (const { keys } of expiredUsers) {
                 for (const { configFilePath } of keys) {
-                    const matches = matchClientName.exec(configFilePath);
-                    if (matches && matches.length) {
-                        const clientName = matches[0];
-                        await exec(`sudo bash /root/galvpn/vpn.sh --disableclient ${clientName}`);
-                    }
+                    const clientName = extractClientName(configFilePath);
+                    await exec(`sudo bash /root/galvpn/vpn.sh --disableclient ${clientName}`);
                 }
             }
         }

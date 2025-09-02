@@ -1,5 +1,5 @@
 import axios, { HttpStatusCode } from "axios";
-import { closeMiniApp, retrieveRawInitData } from "@telegram-apps/sdk";
+import { closeMiniApp, isTMA, retrieveRawInitData } from "@telegram-apps/sdk";
 import config from "./config";
 import toast from "react-hot-toast";
 import { generateMockEnv } from "./mockEnv";
@@ -11,7 +11,7 @@ const myAxios = axios.create({
 });
 
 // TMA authorization
-if (import.meta.env.PROD) {
+if (import.meta.env.PROD && isTMA()) {
     myAxios.defaults.headers.common["Authorization"] = `tma ${retrieveRawInitData()}`;
 } else {
     try {

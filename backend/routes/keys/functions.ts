@@ -8,6 +8,7 @@ import { randomUUID } from "crypto";
 import config from "../../config";
 import { Key, User } from "../../../shared/prisma";
 import { reportError } from "../../bot/reportError";
+import { extractClientName } from "../../functions";
 
 /**
  *  Requires telegramID of the key's owner
@@ -115,10 +116,7 @@ const deleteKey = async ({ telegramID, keyID }: { telegramID: User["telegramID"]
         if (!matchedKey) return "User doesn't have this key.";
 
         if (config.nodeEnv !== "development") {
-            const clientName = matchedKey.configFilePath.split("/").pop();
-
-            if (!clientName) return "Data mismatch.";
-
+            const clientName = extractClientName(matchedKey.configFilePath);
             await exec(`sudo bash /root/galvpn/vpn.sh --removeclient ${clientName} -y`);
         }
 
