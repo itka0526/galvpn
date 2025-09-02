@@ -11,12 +11,16 @@ import { init } from "@/init.ts";
 
 import "./index.css";
 import config from "./config";
+import { generateMockEnv } from "./mockEnv";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 try {
+    // Mock the environment in case, we are outside Telegram.
+    await generateMockEnv();
+
     // If not TMA just redirect user to Telegram Bot only in production
-    if (!(await isTMA("complete")) && !import.meta.env.DEV) {
+    if (!isTMA() && import.meta.env.PROD) {
         window.location.href = config.botLink;
     }
     const launchParams = retrieveLaunchParams();
@@ -36,5 +40,6 @@ try {
         );
     });
 } catch (e) {
+    console.error(e);
     root.render(<EnvUnsupported />);
 }

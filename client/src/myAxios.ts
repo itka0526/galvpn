@@ -3,9 +3,6 @@ import { closeMiniApp, retrieveRawInitData } from "@telegram-apps/sdk";
 import config from "./config";
 import toast from "react-hot-toast";
 
-// Mock the environment in case, we are outside Telegram.
-import "./mockEnv.ts";
-
 const initDataRaw = retrieveRawInitData();
 
 // Set config defaults when creating the instance
