@@ -12,6 +12,7 @@ import { bot } from "./bot/bot";
 import referralRouter from "./routes/referral/referral";
 import https from "https";
 import http from "http";
+import fs from "fs";
 
 const app = express();
 
@@ -46,7 +47,10 @@ app.use(referralRouter);
 app.use(defaultErrorMiddleware);
 
 if (config.port === 443) {
-    https.createServer(app).listen(config.port, async () => {
+    if (!config.SSLCertPath || !config.SSLKeyPath) {
+        throw Error("SSL config missing...");
+    }
+    https.createServer({ cert: fs.readFileSync(config.SSLCertPath), key: fs.readFileSync(config.SSLKeyPath) }, app).listen(config.port, async () => {
         console.log(`HTTPS server is running on port ${config.port}...`);
     });
 } else {

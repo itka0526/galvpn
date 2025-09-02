@@ -73,3 +73,5 @@ sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot # prepare
 sudo certbot certonly --standalone # must open port 80
 echo "0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && sudo certbot renew -q" | sudo tee -a /etc/crontab > /dev/null # renew certs
 ```
+
+-   Add your key and cert paths to backend/.env
