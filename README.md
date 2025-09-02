@@ -75,3 +75,10 @@ echo "0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; 
 ```
 
 -   Add your key and cert paths to backend/.env
+
+### Persistance
+
+```
+crontab -e
+@reboot /root/galvpn/backend && /usr/bin/npm run start >> /root/log.txt 2>&1
+```
