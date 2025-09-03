@@ -166,7 +166,7 @@ export const DashboardPage = () => {
                                         <SelectTrigger>
                                             <SelectValue placeholder={"Language"} />
                                         </SelectTrigger>
-                                        <SelectContent position="item-aligned">
+                                        <SelectContent position="popper" align="center">
                                             {languages.map((l, idx) => {
                                                 return (
                                                     <SelectItem value={l} key={`choice-${idx}`}>
