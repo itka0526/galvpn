@@ -107,7 +107,7 @@ export const ReferPage = () => {
                                 <Button
                                     variant={"default"}
                                     onClick={handleCopyLink}
-                                    className="h-9 w-40 px-1 overflow-hidden bg-gray-600 border border-gray-500"
+                                    className="w-40 h-10 px-1 overflow-hidden bg-gray-600 border border-gray-500"
                                 >
                                     <input value={referrerLink} className="w-full border-none outline-none" readOnly></input>
                                 </Button>
@@ -120,7 +120,7 @@ export const ReferPage = () => {
                             <p className="text-center">Your unique referral code:</p>
 
                             {referrerData && (
-                                <Button variant={"default"} onClick={handleCopyCode} className="h-9 w-40 bg-gray-600 border border-gray-500">
+                                <Button variant={"default"} onClick={handleCopyCode} className="w-40 h-10 bg-gray-600 border border-gray-500">
                                     {referrerData.referralCode}
                                 </Button>
                             )}
@@ -133,7 +133,7 @@ export const ReferPage = () => {
                                 <Input
                                     value={referrerCode}
                                     onChange={updateReferrerCode}
-                                    className="h-9 w-40 text-gray-300 bg-gray-600 border-gray-500"
+                                    className="w-40 h-10 text-gray-300 bg-gray-600 border-gray-500"
                                 />
                             </div>
 

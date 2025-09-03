@@ -43,7 +43,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
         }
     };
 
-    const fileName = configFilePath.split("/").pop() ?? "RANDOM_KEY";
+    const fileName = configFilePath.split("/").pop()?.replace("user", "key") ?? "RANDOM_KEY";
 
     const downloadKey = async () => {
         try {

@@ -8,7 +8,7 @@ export function App() {
     const lp = useMemo(() => retrieveLaunchParams(), []);
     return (
         <AppRoot
-            className="bg-black/95 flex flex-col w-full min-h-full"
+            className="bg-black/95 flex flex-col w-full min-h-full pt-12"
             appearance={"dark"}
             platform={["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"}
         >
