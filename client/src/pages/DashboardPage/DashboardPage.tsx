@@ -150,7 +150,7 @@ export const DashboardPage = () => {
     };
     return (
         <Page back={false}>
-            <main className="pb-28 flex flex-1 w-full h-full pt-6">
+            <main className="pb-28 flex flex-1 w-full h-full max-w-xl pt-24">
                 <section className={"flex flex-col items-center w-full gap-6 px-6 basis-full"}>
                     {loadingKeys || loadingUser ? (
                         <div className="basis-full flex items-center justify-center">

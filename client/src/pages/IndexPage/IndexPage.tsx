@@ -5,6 +5,8 @@ import Lottie from "lottie-react";
 import fireAnimation from "../../../assets/fire.json";
 import { useNavigate } from "react-router-dom";
 import myAxios from "@/myAxios";
+import toast from "react-hot-toast";
+import { Info } from "lucide-react";
 
 export const IndexPage: FC = () => {
     const navigate = useNavigate();
@@ -23,6 +25,7 @@ export const IndexPage: FC = () => {
         HandleUser();
 
         const interval = setInterval(() => {
+            toast.success("Retrying...", { icon: <Info className="w-6 h-6" /> });
             HandleUser();
         }, 10000);
 
@@ -31,7 +34,7 @@ export const IndexPage: FC = () => {
 
     return (
         <Page back={false}>
-            <main className="bg-primary flex items-center justify-center flex-1 h-full">
+            <main className="bg-primary flex items-center justify-center flex-1 h-full max-w-xl pt-20">
                 <div className="flex flex-col w-1/3 gap-4">
                     <Lottie animationData={fireAnimation} loop />
                 </div>
