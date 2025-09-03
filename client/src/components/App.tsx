@@ -8,18 +8,20 @@ export function App() {
     const lp = useMemo(() => retrieveLaunchParams(), []);
     return (
         <AppRoot
-            className="bg-black/95 flex flex-col w-full min-h-full pt-12"
+            className="bg-black/95 flex flex-col items-center w-full min-h-full pt-12"
             appearance={"dark"}
             platform={["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"}
         >
-            <HashRouter>
-                <Routes>
-                    {routes.map((route) => (
-                        <Route key={route.path} {...route} />
-                    ))}
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-            </HashRouter>
+            <div className="flex flex-col w-full h-full max-w-xl">
+                <HashRouter>
+                    <Routes>
+                        {routes.map((route) => (
+                            <Route key={route.path} {...route} />
+                        ))}
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                </HashRouter>
+            </div>
         </AppRoot>
     );
 }

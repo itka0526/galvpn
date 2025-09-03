@@ -115,7 +115,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                     </div>
                 </div>
             )}
-            <CardContent className="max-md:p-0 flex flex-col w-full" aria-disabled={deletingKey}>
+            <CardContent className="flex flex-col w-full p-0" aria-disabled={deletingKey}>
                 <Textarea
                     readOnly
                     value={`# ${fileName}\n\n${configFile}`}
