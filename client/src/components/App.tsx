@@ -8,11 +8,11 @@ export function App() {
     const lp = useMemo(() => retrieveLaunchParams(), []);
     return (
         <AppRoot
-            className="bg-black/95 flex flex-col items-center w-full min-h-full pt-12"
+            className="bg-black/95 flex flex-col items-center w-full min-h-full pt-20"
             appearance={"dark"}
             platform={["macos", "ios"].includes(lp.tgWebAppPlatform) ? "ios" : "base"}
         >
-            <div className="flex flex-col w-full h-full max-w-xl">
+            <div className="flex flex-col w-full max-w-xl min-h-full">
                 <HashRouter>
                     <Routes>
                         {routes.map((route) => (
