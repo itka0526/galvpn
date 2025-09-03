@@ -119,7 +119,7 @@ keysRouter.get("/keys/download", async (req, res) => {
         if (!key) {
             return res.status(400).json({ message: "Key is missing." });
         }
-        await bot.api.sendDocument(initData.user.id, new InputFile(Uint8Array.from(key.configFile), key.configFilePath.split("/").pop()));
+        await bot.api.sendDocument(initData.user.id, new InputFile(Buffer.from(key.configFile, "utf-8"), key.configFilePath.split("/").pop()));
         // TODO: i18
         return res.status(200).json({ message: "Please check your telegram chat." });
     } catch (err) {
