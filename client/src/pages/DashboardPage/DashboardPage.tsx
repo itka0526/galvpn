@@ -148,6 +148,7 @@ export const DashboardPage = () => {
             setLoadingUser(false);
         }
     };
+
     return (
         <Page back={false}>
             <main className="pb-28 pt-28 flex flex-1 w-full h-full max-w-xl">
