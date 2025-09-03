@@ -19,7 +19,7 @@ export function Root() {
             <ErrorBoundary fallback={ErrorBoundaryError}>
                 <App />
             </ErrorBoundary>
-            <Toaster position="top-center" containerClassName="mt-28" />
+            <Toaster position="top-center" containerClassName="mt-16" />
         </>
     );
 }
