@@ -34,7 +34,7 @@ export const IndexPage: FC = () => {
 
     return (
         <Page back={false}>
-            <main className="bg-primary flex items-center justify-center flex-1 h-full max-w-xl pt-20">
+            <main className="bg-primary pt-28 flex items-center justify-center flex-1 h-full max-w-xl">
                 <div className="flex flex-col w-1/3 gap-4">
                     <Lottie animationData={fireAnimation} loop />
                 </div>

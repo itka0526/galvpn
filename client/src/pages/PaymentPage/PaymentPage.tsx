@@ -10,7 +10,7 @@ export const PaymentPage: FC = () => {
     const userID = tgWebAppData?.user?.id ?? "MGLZ";
     return (
         <Page back={true}>
-            <main className="flex flex-col items-center justify-center flex-1 w-full max-w-xl gap-4 p-4 pt-20">
+            <main className="pt-28 flex flex-col items-center justify-center flex-1 w-full max-w-xl gap-4 p-4">
                 <h1 className="text-2xl font-bold text-center text-white">Payment </h1>
                 <div className="space-y-4">
                     <div className="flex flex-col items-center gap-4 space-x-3">

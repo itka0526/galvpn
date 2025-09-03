@@ -93,7 +93,7 @@ export const ReferPage = () => {
 
     return (
         <Page back>
-            <main className="flex flex-1 w-full h-full max-w-xl py-6 pt-20">
+            <main className="pt-28 flex flex-1 w-full h-full max-w-xl py-6">
                 <section className={"flex flex-col items-center justify-center w-full gap-6 px-6 basis-full"}>
                     {loading ? (
                         <div className="basis-full flex items-center justify-center">
