@@ -180,7 +180,7 @@ export const DashboardPage = () => {
                                 </div>
                             ) : null}
                             {keys.length === 0 && !(loadingKeys || loadingUser) ? (
-                                <div className="flex flex-col items-center justify-center px-3 py-2 text-center bg-gray-800 border border-gray-700 rounded-md shadow-md">
+                                <div className="flex flex-col items-center justify-center p-3 text-center bg-gray-800 border border-gray-700 rounded-md shadow-md">
                                     <p className={cn("text-gray-200 leading-relaxed text-2xl font-bold")}>{t("welcome.p1")}</p>
                                     <div className="max-w-52">
                                         <Lottie animationData={rocketAnimation} loop />
