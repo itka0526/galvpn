@@ -77,5 +77,6 @@
     "received": "received",
     "sent": "sent",
     "referral_hint": "🎁 You joined with a referral code: *{{code}}*\n\nYou'll get bonus days once you sign up!",
-    "start_button": "🕹️ Start"
+    "start_button": "🕹️ Start",
+    "welcome": { "p1": "👋 Welcome!", "p2": "To get started, create your first key using the 'Create' button in the bottom menu." }
 }

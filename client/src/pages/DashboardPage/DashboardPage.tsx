@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { ShowStatus } from "./components/show-status";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
+import Lottie from "lottie-react";
+import rocketAnimation from "../../../assets/rocket.json";
 
 const itemClasses = "flex flex-col justify-center items-center px-4 py-2 select-none relative transition-all";
 
@@ -175,6 +177,17 @@ export const DashboardPage = () => {
                                             })}
                                         </SelectContent>
                                     </Select>
+                                </div>
+                            ) : null}
+                            {keys.length === 0 && !(loadingKeys || loadingUser) ? (
+                                <div className="flex flex-col items-center justify-center px-3 py-2 text-center bg-gray-800 border border-gray-700 rounded-md shadow-md">
+                                    <p className={cn("text-gray-200 leading-relaxed text-xl font-bold")}>{t("welcome.p1")}</p>
+                                    <div className="max-w-44">
+                                        <Lottie animationData={rocketAnimation} loop />
+                                    </div>
+                                    <p className={cn(i18n.language !== "en" ? "text-sm" : "text-base", "text-gray-200 leading-relaxed font-medium")}>
+                                        {t("welcome.p2")}
+                                    </p>
                                 </div>
                             ) : null}
                             {keys.map((item) => (
