@@ -18,15 +18,16 @@ usersRouter.post("/users", async (req, res) => {
     }
 
     try {
-        const referralCode = config.nodeEnv === "development" ? "YBA20X" : initData.start_param?.toString();
+        const referralCode = config.nodeEnv === "development" ? "YBA20X" : req.query["referralCode"];
 
         // Check if user exists
         const existingUser = await readUser({ telegramID: initData.user.id.toString() });
 
         if (existingUser) {
             // Check if they used referral
-            if (referralCode && !isInvalidReferralCodeType(referralCode)) {
-                await referrerAddFriend({ friendID: existingUser.telegramID, referrerCode: referralCode });
+            if (referralCode && typeof referralCode === "string" && !isInvalidReferralCodeType(referralCode)) {
+                const refRes = await referrerAddFriend({ friendID: existingUser.telegramID, referrerCode: referralCode });
+                return res.status(200).json({ ...existingUser, message: req.t(refRes) });
             }
             return res.status(200).json(existingUser);
         }
@@ -47,8 +48,9 @@ usersRouter.post("/users", async (req, res) => {
         const user = await createUser({ telegramID: initData.user.id.toString(), activeTill: freeTrialEndDate, preferedLanguage });
 
         // Check if they used referral
-        if (referralCode && !isInvalidReferralCodeType(referralCode)) {
-            await referrerAddFriend({ friendID: user.telegramID, referrerCode: referralCode });
+        if (referralCode && typeof referralCode === "string" && !isInvalidReferralCodeType(referralCode)) {
+            const refRes = await referrerAddFriend({ friendID: user.telegramID, referrerCode: referralCode });
+            return res.status(200).json({ ...user, message: req.t(refRes) });
         }
 
         return res.status(200).json(user);

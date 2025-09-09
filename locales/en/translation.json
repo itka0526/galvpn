@@ -75,5 +75,7 @@
     "used": "Key was last used",
     "not_used": "Key hasn't been used",
     "received": "received",
-    "sent": "sent"
+    "sent": "sent",
+    "referral_hint": "🎁 You joined with a referral code: *{{code}}*\n\nYou'll get bonus days once you sign up!",
+    "start_button": "🕹️ Start"
 }
