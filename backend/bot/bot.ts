@@ -12,6 +12,7 @@ if (config.nodeEnv === "development") {
 
 // User stuff
 import "./user/start";
+import "./user/instructions";
 
 // Admin stuff
 import "./payment/response";

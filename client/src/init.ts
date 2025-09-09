@@ -83,4 +83,6 @@ export async function init(options: { debug: boolean; eruda: boolean; mockForMac
     if (swipeBehavior.enableVertical.isAvailable()) {
         swipeBehavior.disableVertical();
     }
+    // @ts-ignore
+    if (window?.Telegram?.WebApp) window.Telegram.WebApp.expand();
 }
