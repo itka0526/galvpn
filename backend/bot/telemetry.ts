@@ -59,7 +59,6 @@ function contentFromContext(ctx: Context) {
         if ("caption" in ctx.message) {
             return ctx.message.caption;
         }
-        // TODO: implement different messages
     }
     return ctx.inlineQuery?.query;
 }

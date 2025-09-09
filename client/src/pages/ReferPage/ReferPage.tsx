@@ -9,13 +9,13 @@ import { HttpStatusCode, isAxiosError } from "axios";
 import { Link } from "lucide-react";
 import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
-// TODO: i18
+import { useTranslation } from "react-i18next";
 
 export const ReferPage = () => {
     const [referrerData, setReferrerData] = useState<null | { referredCount: number; referralCode: string }>(null);
     const [referrerLink, setReferrerLink] = useState<null | string>(null);
     const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
 
     const fetchReferralData = async () => {
         setLoading(!loading);
@@ -34,8 +34,7 @@ export const ReferPage = () => {
             }
         } catch (err) {
             console.error(err);
-            // TODO: i18
-            toast.error("Network error.");
+            toast.error(t("server_unreachable"));
         } finally {
             setLoading(false);
         }
@@ -74,8 +73,7 @@ export const ReferPage = () => {
                     }
                 }
                 console.error(err);
-                // TODO: i18
-                toast.error("Network error.");
+                toast.error(t("server_unreachable"));
             } finally {
                 setLoading(false);
             }
@@ -87,7 +85,7 @@ export const ReferPage = () => {
     const handleCopyLink = async () => {
         if (referrerLink) {
             await copyTextToClipboard(referrerLink);
-            toast.success("Link copied", { icon: <Link size={24} /> });
+            toast.success(t("link_copied"), { icon: <Link size={24} /> });
         }
     };
 
@@ -100,8 +98,8 @@ export const ReferPage = () => {
                             <Spinner size="l" />
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center w-full gap-4 p-4 text-gray-200 bg-gray-800 border border-gray-700 rounded-md">
-                            <p className="text-center">Share this to get a bonus:</p>
+                        <div className="flex flex-col items-center justify-center w-full gap-4 p-4 text-gray-200 bg-gray-800 border border-gray-700 rounded-md ">
+                            <p className="text-center">{t("referral_instruction.share")}</p>
 
                             {referrerLink && (
                                 <Button
@@ -114,22 +112,20 @@ export const ReferPage = () => {
                             )}
 
                             <p className="text-center">
-                                You will get {config.referralA} days, <br /> and your friend will get {config.referralB} days by using your code.
+                                {t("referral_instruction.bonus", { referralA: config.referralA, referralB: config.referralB })}
                             </p>
 
-                            <p className="text-center">Your unique referral code:</p>
+                            <p className="text-center">{t("referral_instruction.code")}</p>
 
                             {referrerData && (
                                 <Button variant={"default"} onClick={handleCopyCode} className="w-40 h-10 bg-gray-600 border border-gray-500">
                                     {referrerData.referralCode}
                                 </Button>
                             )}
-                            <p className="text-center">
-                                Or copy the above code and share it with your friend. Your friend should enter the code on this page.
-                            </p>
+                            <p className="text-center">{t("referral_instruction.other")}</p>
 
                             <div className="place-items-center grid w-full grid-rows-2 gap-4">
-                                <p>Enter your friend's code:</p>
+                                <p>{t("referral_instruction.code_b")}</p>
                                 <Input
                                     value={referrerCode}
                                     onChange={updateReferrerCode}
@@ -137,7 +133,7 @@ export const ReferPage = () => {
                                 />
                             </div>
 
-                            <p className="text-center">You currently referred {referrerData?.referredCount ?? 0} friends.</p>
+                            <p className="text-center">{t("referral_instruction.count", { count: referrerData?.referredCount ?? 0 })}</p>
                         </div>
                     )}
                 </section>

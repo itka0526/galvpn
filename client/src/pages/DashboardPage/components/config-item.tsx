@@ -14,10 +14,12 @@ import { cn } from "@/helpers/cn";
 import { HttpStatusCode } from "axios";
 import { KeyStatsType } from "@shared/types";
 import { humanFileSize } from "./human-readable-file-size";
+import { useTranslation } from "react-i18next";
 
 type ConfigItemProps = { item: Key; setUserKeys: Dispatch<SetStateAction<Key[]>> };
 
 export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKeys }: ConfigItemProps) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
 
     const [deletingKey, setDeletingKey] = useState(false);
@@ -36,8 +38,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
             }
         } catch (err) {
             console.error(err);
-            // i18
-            toast.error("Unknown error (CI1)");
+            toast.error(t("unknown") + " (CI1)");
         } finally {
             setDeletingKey(false);
         }
@@ -89,8 +90,6 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                     ),
                     { icon: <Calendar />, duration: 2500 }
                 );
-
-                console.log(stats);
             } else {
                 toast.error(res.data.message);
             }
@@ -134,9 +133,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                {/* TODO: i18 */}
-
-                                <p className="text-sm text-gray-400">{deletingKey ? "Deleting..." : "Delete key"}</p>
+                                <p className="text-sm text-gray-400">{deletingKey ? t("deleting") : t("del_key")}</p>
                             </TooltipContent>
                         </Tooltip>
 
@@ -147,9 +144,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                {/* TODO: i18 */}
-
-                                <p className="text-sm text-gray-400">Download</p>
+                                <p className="text-sm text-gray-400">{t("download")}</p>
                             </TooltipContent>
                         </Tooltip>
 
@@ -160,8 +155,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                {/* TODO: i18 */}
-                                <p className="text-sm text-gray-400">Show stats</p>
+                                <p className="text-sm text-gray-400">{t("show_stats")}</p>
                             </TooltipContent>
                         </Tooltip>
 
@@ -169,15 +163,11 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                             <TooltipTrigger asChild>
                                 <Button onClick={() => setOpen(true)} className="w-full" disabled={deletingKey}>
                                     <LucideQrCode className="mr-2" />
-                                    {/* TODO: i18 */}
-
-                                    <span className="font-medium text-white">QR code</span>
+                                    <span className="font-medium text-white">{t("qr_code")}</span>
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                {/* TODO: i18 */}
-
-                                <p className="text-sm text-gray-400">Scan QR code</p>
+                                <p className="text-sm text-gray-400">{t("scan_qr_code")}</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>

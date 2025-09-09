@@ -10,12 +10,11 @@ import { isInvalidReferralCodeType, referrerAddFriend } from "../referral/functi
 const usersRouter = Router();
 
 // This route should be protected by auth middleware
-usersRouter.post("/users", async (_, res) => {
+usersRouter.post("/users", async (req, res) => {
     const initData = getInitData(res as unknown as CustomResponse);
 
     if (!initData || !initData.user) {
-        // TODO: i18
-        return res.status(418).json({ message: "Please restart the app or try again later." });
+        return res.status(418).json({ message: req.t("bad_req") + " " + req.t("restart") });
     }
 
     try {
@@ -59,12 +58,11 @@ usersRouter.post("/users", async (_, res) => {
     }
 });
 
-usersRouter.get("/users", async (_, res) => {
+usersRouter.get("/users", async (req, res) => {
     const initData = getInitData(res as unknown as CustomResponse);
 
     if (!initData || !initData.user) {
-        // TODO: i18
-        return res.status(418).json({ message: "Please restart the app or try again later." });
+        return res.status(418).json({ message: req.t("bad_req") + " " + req.t("restart") });
     }
 
     try {
@@ -82,8 +80,7 @@ usersRouter.put("/users/language", async (req, res) => {
     const initData = getInitData(res as unknown as CustomResponse);
 
     if (!initData || !initData.user) {
-        // TODO: i18
-        return res.status(418).json({ message: "Please restart the app or try again later." });
+        return res.status(418).json({ message: req.t("bad_req") + " " + req.t("restart") });
     }
 
     const rawLanguage = req.body["language"];
@@ -91,18 +88,17 @@ usersRouter.put("/users/language", async (req, res) => {
     const supportedLanguages: User["preferedLanguage"][] = ["en", "mn", "ru"];
 
     if (!rawLanguage || !supportedLanguages.includes(rawLanguage as User["preferedLanguage"])) {
-        return res.status(400).json({ message: "Language not supported." });
+        return res.status(400).json({ message: req.t("not_supported") });
     }
 
     try {
         const user = await UpdateUserLanguage({ telegramID: initData.user.id.toString(), preferedLanguage: rawLanguage as User["preferedLanguage"] });
-        // TODO: i18
-        if (!user) res.status(400).json({ message: "User does not exist." });
-        return res.status(200).json({ user, message: "Language changed." });
+        if (!user) res.status(400).json({ message: req.t("User was not found.") });
+        return res.status(200).json({ user, message: req.t("lng_changed", { lng: user.preferedLanguage }) });
     } catch (error) {
         console.error(error);
         reportError(typeof error === "object" ? JSON.stringify(error) : `${error}`);
-        return res.status(401).json({ message: "Could not fulfill request." });
+        return res.status(500).json({ message: req.t("server_err") });
     }
 });
 

@@ -25,16 +25,15 @@ const TMA_authMiddleware: RequestHandler = (req, res: CustomResponse, next) => {
             return next();
         } catch (error) {
             if (error instanceof UnauthorizedError) {
-                return res.status(418).json({ message: "Unauthorized. Please restart the app." });
+                return res.status(418).json({ message: req.t("unauth") + " " + req.t("restart") });
             }
             if (isExpiredError(error)) {
-                // TODO: i18
-                return res.status(418).json({ message: "Please restart the app." });
+                return res.status(418).json({ message: req.t("restart") });
             }
             return next(error);
         }
     }
-    return next(new Error("Unauthorized"));
+    return next(new Error(req.t("unauth")));
 };
 
 export { TMA_authMiddleware };

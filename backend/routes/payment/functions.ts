@@ -2,12 +2,12 @@ import { InlineKeyboard } from "grammy";
 
 export const adminResponse = (userID: string) =>
     new InlineKeyboard()
-        .text("🔓 АН-БЛОКЛОХ", `unblock-$#${userID}`)
-        .text("🗑️ БЛОКЛОХ", `block-$#${userID}`)
+        .text("🔓", `unblock-$#${userID}`)
+        .text("⛔️", `block-$#${userID}`)
         .row()
-        .text("🗓️ 30 хоног", `30days-$#${userID}`)
-        .text("🗓️ 60 хоног", `60days-$#${userID}`)
-        .text("🗓️ 90 хоног", `90days-$#${userID}`)
+        .text("🗓️ 30D", `30days-$#${userID}`)
+        .text("🗓️ 60D", `60days-$#${userID}`)
+        .text("🗓️ 90D", `90days-$#${userID}`)
         .row()
-        .text("ℹ️ Мэдээлэл", `information-$#${userID}`)
+        .text("ℹ️", `information-$#${userID}`)
         .row();

@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import myAxios from "@/myAxios";
 import toast from "react-hot-toast";
 import { Info } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const IndexPage: FC = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     async function HandleUser() {
@@ -25,7 +27,7 @@ export const IndexPage: FC = () => {
         HandleUser();
 
         const interval = setInterval(() => {
-            toast.success("Retrying...", { icon: <Info className="w-6 h-6" /> });
+            toast.success(t("retrying"), { icon: <Info className="w-6 h-6" /> });
             HandleUser();
         }, 10000);
 

@@ -1,29 +1,31 @@
-// TODO: i18
-
+import { TFunction } from "i18next";
 import { User } from "../shared/prisma";
+import { i18next } from "./i18n";
 
-export const expirationMessage = `
-Your subscription has ended.
+const t = i18next.t;
+
+export const expirationMessage = (language: User["preferedLanguage"]) => `
+${t("expiration_message", { lng: language })}
 `;
 
-export const soonToBeExpiredMessage = `
-Your subscription ends in 3 days.
+export const soonToBeExpiredMessage = (language: User["preferedLanguage"]) => `
+${t("expiration_message_2", { lng: language })}
 `;
 
-export const confirmPaymentMessage = (userID: string, activeTill: Date) => `
-ℹ️ User has paid subscription.
+export const confirmPaymentMessage = (userID: string, activeTill: Date, t: TFunction<"translation", undefined>, language: string) => `
+ℹ️ ${t("admin_notif.title")}
 
-- User:
+- ${t("admin_notif.field_1")}:
     <b>${userID}</b>
 
-- Expiration date:
-    <b>${activeTill.toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" })}</b>
+- ${t("admin_notif.field_2")}:
+    <b>${activeTill.toLocaleString(language, { dateStyle: "short", timeStyle: "short" })}</b>
 `;
 
-export const userInformation = ({ dbData = "", tgData = "" }) => `
-<blockquote>ℹ️ Database</blockquote>
+export const userInformation = ({ dbData = "", tgData = "", language }: { dbData?: string; tgData?: string; language: User["preferedLanguage"] }) => `
+<blockquote>ℹ️ ${t("database", { lng: language })}</blockquote>
 <blockquote expandable>${dbData}</blockquote>
-<blockquote>ℹ️ Telegram</blockquote>
+<blockquote>ℹ️ ${t("telegram", { lng: language })}</blockquote>
 <blockquote expandable>${tgData}</blockquote>
 `;
 
@@ -32,14 +34,14 @@ export const usersList = (users: Partial<User>[]) => {
 };
 
 export const adminCommands = `
-Командууд:
+${t("admin_cmds.title")}:
 
-# Хэрэглэгчидийн нэрсийн жагсалт
+# ${t("admin_cmds.all")}
 /users
 
-# Сунгах - extend userEmail dayToAdd
+# ${t("admin_cmds.extend")}
 /extend
 
-# Хэрэглэгч - userEmail
+# ${t("admin_cmds.info")}
 /user
 `;

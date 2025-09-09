@@ -11,10 +11,12 @@ import { ConfigItem } from "./components/config-item";
 import { Link } from "react-router-dom";
 import { ShowStatus } from "./components/show-status";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 const itemClasses = "flex flex-col justify-center items-center px-4 py-2 select-none relative transition-all";
 
 export const DashboardPage = () => {
+    const { t, i18n } = useTranslation();
     const [loadingUser, setLoadingUser] = useState(false);
 
     const [loadingCreate, setLoadingCreate] = useState(false);
@@ -22,8 +24,6 @@ export const DashboardPage = () => {
 
     const [keys, setKeys] = useState<Key[]>([]);
     const [user, setUser] = useState<User | null>(null);
-
-    const [language, setLanguage] = useState<User["preferedLanguage"] | null>(null);
 
     useEffect(() => {
         fetchKeys();
@@ -48,13 +48,12 @@ export const DashboardPage = () => {
 
             if (res.status === HttpStatusCode.Ok) {
                 setUser(res.data);
-                setLanguage(res.data.preferedLanguage);
+                i18n.changeLanguage(res.data.preferedLanguage);
+                myAxios.defaults.headers.common["Accept-Language"] = res.data.preferedLanguage;
             }
         } catch (err) {
             console.error(err);
-
-            // TODO: i18
-            toast.error("Cannot reach server.");
+            toast.error(t("server_unreachable"));
         } finally {
             setLoadingUser(false);
         }
@@ -75,8 +74,7 @@ export const DashboardPage = () => {
             }
         } catch (err) {
             console.error(err);
-            // TODO: i18
-            toast.error("Cannot reach server.");
+            toast.error(t("server_unreachable"));
         } finally {
             setLoadingKeys(false);
         }
@@ -112,8 +110,7 @@ export const DashboardPage = () => {
                     ),
                 });
             } else {
-                // TODO: i18
-                toast.error((err as any)?.message ?? "Unknown error (DP2)");
+                toast.error((err as any)?.message ?? t("unknown") + " (DP2)");
             }
         } finally {
             setLoadingCreate(false);
@@ -122,11 +119,11 @@ export const DashboardPage = () => {
 
     const languages = ["en", "mn", "ru"];
 
-    const handleLanguageChange = async (nl: string) => {
+    const handleLanguageChange = async (newLanguage: string) => {
         setLoadingUser(true);
         try {
-            if (nl !== user?.preferedLanguage) {
-                const res = await myAxios.put("/users/language", { language: nl });
+            if (newLanguage !== user?.preferedLanguage) {
+                const res = await myAxios.put("/users/language", { language: newLanguage });
 
                 if ("message" in res.data) {
                     if (res.status === HttpStatusCode.Ok) {
@@ -138,12 +135,14 @@ export const DashboardPage = () => {
 
                 if (res.status === HttpStatusCode.Ok) {
                     setUser(res.data.user);
-                    setLanguage(res.data.user?.preferedLanguage);
+                    const updatedLanguage = res.data.user?.preferedLanguage;
+                    i18n.changeLanguage(updatedLanguage);
+                    myAxios.defaults.headers.common["Accept-Language"] = updatedLanguage;
                 }
             }
         } catch (err) {
             console.error(err);
-            toast.error("Network error.");
+            toast.error(t("server_unreachable"));
         } finally {
             setLoadingUser(false);
         }
@@ -162,7 +161,7 @@ export const DashboardPage = () => {
                             {user ? (
                                 <div className="flex items-center justify-between w-full px-3 py-2 text-gray-200 bg-gray-800 border border-gray-700 rounded-md">
                                     <ShowStatus user={user} />
-                                    <Select value={language as string} onValueChange={handleLanguageChange}>
+                                    <Select value={i18n.language} onValueChange={handleLanguageChange}>
                                         <SelectTrigger>
                                             <SelectValue placeholder={"Language"} />
                                         </SelectTrigger>
@@ -187,11 +186,11 @@ export const DashboardPage = () => {
 
                 <section className=" left-1/2 bottom-4 fixed z-10 items-center justify-center p-4 -translate-x-1/2">
                     <div
-                        className={
-                            "text-gray-200 bg-gray-800/50 border-gray-700 w-full flex items-center justify-center rounded-full shadow-xl border backdrop-blur-md backdrop-saturate-[100%] px-4"
-                        }
+                        className={cn(
+                            "text-gray-200 bg-gray-800/50 border-gray-700 w-full flex items-center justify-center rounded-full shadow-xl border backdrop-blur-md backdrop-saturate-[100%] ",
+                            i18n.language !== "en" ? "px-2" : "px-4"
+                        )}
                     >
-                        {/* TODO: i18 */}
                         <button className={cn(itemClasses)} onClick={handleCreate} disabled={loadingCreate}>
                             {loadingCreate ? (
                                 <LoaderCircle className={cn("m-0 transition-colors", "stroke-gray-500 animate-spin")} size={28} />
@@ -201,31 +200,39 @@ export const DashboardPage = () => {
                             <span
                                 className={cn(
                                     "text-sm text-center font-medium  transition-colors",
-                                    loadingCreate ? "text-gray-500" : "text-gray-300"
+                                    loadingCreate ? "text-gray-500" : "text-gray-300",
+                                    i18n.language !== "en" ? "text-xs" : ""
                                 )}
                             >
-                                Create
+                                {t("create")}
                             </span>
                         </button>
 
-                        {/* TODO: i18 */}
                         <Link className={cn(itemClasses)} to="/payment">
                             <BadgeDollarSign className="stroke-gray-300 m-0" size={28} />
-                            <span className="text-sm font-medium text-center text-gray-300">Payment</span>
+                            <span className={cn("text-sm font-medium text-center text-gray-300", i18n.language !== "en" ? "text-xs" : "")}>
+                                {t("payment")}
+                            </span>
                         </Link>
 
-                        {/* TODO: i18 */}
                         <button className={cn(itemClasses)} onClick={refresh} disabled={loadingKeys || loadingKeys}>
                             <RotateCw className={cn("stroke-gray-300 m-0", loadingKeys || loadingKeys ? "animate-spin" : "")} size={28} />
-                            <span className={cn("text-sm font-medium text-center ", loadingKeys || loadingKeys ? "text-gray-500" : "text-gray-300")}>
-                                Refresh
+                            <span
+                                className={cn(
+                                    "text-sm font-medium text-center ",
+                                    loadingKeys || loadingKeys ? "text-gray-500" : "text-gray-300",
+                                    i18n.language !== "en" ? "text-xs" : ""
+                                )}
+                            >
+                                {t("refresh")}
                             </span>
                         </button>
 
-                        {/* TODO: i18 */}
                         <Link className={cn(itemClasses)} to="/refer">
                             <UserPlus className={cn("stroke-gray-300 m-0")} size={28} />
-                            <span className={cn("text-sm font-medium text-center ", "text-gray-300")}>Refer</span>
+                            <span className={cn("text-sm font-medium text-center", "text-gray-300", i18n.language !== "en" ? "text-xs" : "")}>
+                                {t("refer")}
+                            </span>
                         </Link>
                     </div>
                 </section>

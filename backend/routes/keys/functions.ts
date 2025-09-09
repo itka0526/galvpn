@@ -9,6 +9,7 @@ import config from "../../config";
 import { Key, User } from "../../../shared/prisma";
 import { reportError } from "../../bot/reportError";
 import { extractClientName } from "../../functions";
+import { TFunction } from "i18next";
 
 /**
  *  Requires telegramID of the key's owner
@@ -26,22 +27,18 @@ const createKey = async ({ telegramID }: { telegramID: User["telegramID"] }) => 
         });
 
         if (!dbRes) {
-            // TODO: i18
-            return "User was not found";
+            return "User was not found.";
         }
 
         const { _count, activeTill, banned } = dbRes;
         // Check status
         if (activeTill < new Date()) {
-            // TODO: i18
             return "Payment required";
         }
         if (banned) {
-            // TODO: i18
             return "User is banned";
         }
         if (_count.keys >= config.keyLimitPerUser) {
-            // TODO: i18
             return "Key limit reached";
         }
 
@@ -83,7 +80,7 @@ const createKey = async ({ telegramID }: { telegramID: User["telegramID"] }) => 
     }
 };
 
-const deleteKey = async ({ telegramID, keyID }: { telegramID: User["telegramID"]; keyID: Key["id"] }) => {
+const deleteKey = async ({ telegramID, keyID, t }: { telegramID: User["telegramID"]; keyID: Key["id"]; t: TFunction<"translation", undefined> }) => {
     try {
         // Check if user is allowed to delete a key
         const dbRes = await prisma.user.findUnique({
@@ -96,18 +93,15 @@ const deleteKey = async ({ telegramID, keyID }: { telegramID: User["telegramID"]
         });
 
         if (!dbRes) {
-            // TODO: i18
             return "User was not found.";
         }
 
         const { activeTill, banned } = dbRes;
         // Check status
         if (activeTill < new Date()) {
-            // TODO: i18
             return "Payment required.";
         }
         if (banned) {
-            // TODO: i18
             return "User is banned.";
         }
 
@@ -116,17 +110,15 @@ const deleteKey = async ({ telegramID, keyID }: { telegramID: User["telegramID"]
         if (!matchedKey) return "User doesn't have this key.";
 
         if (config.nodeEnv !== "development") {
-            const clientName = extractClientName(matchedKey.configFilePath);
+            const clientName = extractClientName(matchedKey.configFilePath, t);
             await exec(`sudo bash /root/galvpn/vpn.sh --removeclient ${clientName} -y`);
         }
 
         await prisma.key.delete({ where: { id: matchedKey.id } });
 
-        // TODO: i18
         return "Key is deleted.";
     } catch (err) {
-        reportError(err);
-        // TODO: i18
+        reportError(err, "Code section: (F1)");
         return "Unknown error (F1)";
     }
 };

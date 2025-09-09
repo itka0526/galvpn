@@ -13,11 +13,13 @@ import referralRouter from "./routes/referral/referral";
 import https from "https";
 import http from "http";
 import fs from "fs";
+import { i18Middleware, i18next } from "./i18n";
 
 const app = express();
 
 app.use(express.json());
 app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
+app.use(i18Middleware.handle(i18next));
 
 app.use(
     cors({
@@ -29,13 +31,19 @@ app.use(
                       "https://192.168.50.184:5173",
                       "https://127.0.0.1:5173",
                       "https://localhost:5173",
+                      "http://localhost:5173",
+                      "http://127.0.0.1:5173",
                   ]
-                : config.CLIENT_ENDPOINT_ADDR, // TODO: your Mini App’s domain
+                : config.CLIENT_ENDPOINT_ADDR,
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Authorization", "Content-Type"],
         credentials: true,
     })
 );
+
+app.get("/", (req, res) => {
+    res.send(req.t("index"));
+});
 
 app.use(TMA_authMiddleware);
 

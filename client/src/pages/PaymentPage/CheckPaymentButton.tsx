@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import myAxios from "@/myAxios";
 import { HttpStatusCode } from "axios";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export function CheckPaymentButton() {
     const checkPayment = async () => {
@@ -13,10 +14,11 @@ export function CheckPaymentButton() {
         }
     };
 
+    const { t } = useTranslation();
+
     return (
         <Button variant={"secondary"} onClick={checkPayment}>
-            {/* TODO: i18 */}
-            I've paid
+            {t("check")}
         </Button>
     );
 }

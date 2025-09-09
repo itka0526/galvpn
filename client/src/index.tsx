@@ -13,6 +13,8 @@ import "./index.css";
 import config from "./config";
 import { generateMockEnv } from "./mockEnv";
 
+import "./i18n";
+
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 try {

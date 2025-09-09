@@ -9,12 +9,11 @@ import { reportError } from "../../bot/reportError";
 
 const paymentRouter = Router();
 
-paymentRouter.post("/payment", async (_, res) => {
+paymentRouter.post("/payment", async (req, res) => {
     const initData = getInitData(res);
 
     if (!initData || !initData.user) {
-        // TODO: i18
-        return res.status(418).json({ message: "Bad request. Please restart the app." });
+        return res.status(418).json({ message: req.t("bad_req") + " " + req.t("restart") });
     }
 
     try {
@@ -24,24 +23,23 @@ paymentRouter.post("/payment", async (_, res) => {
             select: { banned: true, activeTill: true },
         });
         if (!dbRes) {
-            return res.json({ message: "User not found." });
+            return res.json({ message: req.t("User was not found.") });
         }
 
         if (dbRes.banned) {
-            return res.json({ message: "You are banned.", status: false });
+            return res.json({ message: req.t("User is banned."), status: false });
         }
 
-        await bot.api.sendMessage(config.adminID, confirmPaymentMessage(initData.user.id.toString(), dbRes.activeTill), {
+        await bot.api.sendMessage(config.adminID, confirmPaymentMessage(initData.user.id.toString(), dbRes.activeTill, req.t, req.language), {
             parse_mode: "HTML",
             reply_markup: adminResponse(initData.user.id.toString()),
         });
 
-        // TODO: i18
-        return res.status(200).json({ message: "Please wait till admin replies back." });
+        return res.status(200).json({ message: req.t("admin_reply") });
     } catch (err) {
         console.error(err);
         reportError(err);
-        return res.status(500).json({ message: "Cannot handle request." });
+        return res.status(500).json({ message: req.t("server_err") });
     }
 });
 
