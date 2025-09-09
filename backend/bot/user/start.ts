@@ -10,7 +10,7 @@ pmBot.command("start", async (ctx) => {
             inline_keyboard: [
                 [
                     {
-                        text: "🌐",
+                        text: "🕹️",
                         web_app: { url: config.nodeEnv === "production" ? `${config.CLIENT_ENDPOINT_ADDR}/galvpn` : "https://localhost:5173" },
                     },
                 ],
