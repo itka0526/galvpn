@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 type ConfigItemProps = { item: Key; setUserKeys: Dispatch<SetStateAction<Key[]>> };
 
 export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKeys }: ConfigItemProps) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
 
     const [deletingKey, setDeletingKey] = useState(false);
@@ -72,7 +72,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
 
                 toast.success(
                     <span className="font-semibold">
-                        {humanFileSize(stats.transfer.in, true)} received, <br /> {humanFileSize(stats.transfer.out, true)} sent{" "}
+                        {humanFileSize(stats.transfer.in, true)} {t("received")}, <br /> {humanFileSize(stats.transfer.out, true)} {t("sent")}{" "}
                     </span>,
                     { icon: <ArrowDownUp />, duration: 3000 }
                 );
@@ -80,13 +80,13 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                 toast.success(
                     stats.latest > 0 ? (
                         <p>
-                            Key was last used <br />
+                            {t("used")} <br />
                             <span className="font-semibold">
-                                {new Date(stats.latest * 1000).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" })}
+                                {new Date(stats.latest * 1000).toLocaleString(i18n.language, { dateStyle: "short", timeStyle: "short" })}
                             </span>
                         </p>
                     ) : (
-                        <p>Key hasn't been used for a long time</p>
+                        <p>{t("not_used")}</p>
                     ),
                     { icon: <Calendar />, duration: 2500 }
                 );
@@ -95,7 +95,7 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
             }
         } catch (err) {
             console.error(err);
-            toast.error("Unknown error (DK3)");
+            toast.error(t("unknown") + " (DK3)");
         }
     };
 

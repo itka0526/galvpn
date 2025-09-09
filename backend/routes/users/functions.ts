@@ -1,4 +1,5 @@
 import { User } from "../../../shared/prisma";
+import { reportError } from "../../bot/reportError";
 import prisma from "../../db";
 import { customAlphabet } from "nanoid";
 
@@ -30,6 +31,7 @@ async function createUser({ telegramID, activeTill, banned = false, preferedLang
             referralCode: generateReferralCode(),
         },
     });
+    reportError(user, "# NEW USER HAS JOINED");
     return user;
 }
 

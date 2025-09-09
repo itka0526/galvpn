@@ -71,5 +71,9 @@
     "lng_changed": "Language changed.",
     "unknown_user": "Unknown user",
     "inactive": "Inactive",
-    "active_till": "Active till {{date}}"
+    "active_till": "Active till {{date}}",
+    "used": "Key was last used",
+    "not_used": "Key hasn't been used",
+    "received": "received",
+    "sent": "sent"
 }

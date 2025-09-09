@@ -10,6 +10,9 @@ if (config.nodeEnv === "development") {
     pmBot.use(generateUpdateMiddleware());
 }
 
+// User stuff
+import "./user/start";
+
 // Admin stuff
 import "./payment/response";
 import "./admin/commands";
