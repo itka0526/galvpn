@@ -5,6 +5,7 @@ import { _downloadPhoto } from "telegram/client/downloads";
 import { InputFile } from "grammy";
 import { Context } from "grammy";
 import { User } from "../../shared/prisma";
+import { reportError } from "./reportError";
 
 export const getUserDataExtended = async ({ ctx, userID }: { ctx: Context; userID: User["telegramID"] }) => {
     try {
@@ -35,6 +36,6 @@ export const getUserDataExtended = async ({ ctx, userID }: { ctx: Context; userI
         }
     } catch (error) {
         console.error(error);
-        return reportError(error);
+        return await reportError(error);
     }
 };

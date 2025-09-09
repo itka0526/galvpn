@@ -1,14 +1,14 @@
 import { ErrorRequestHandler } from "express";
 import { reportError } from "../bot/reportError";
 
-const defaultErrorMiddleware: ErrorRequestHandler = (err, _req, res) => {
+const defaultErrorMiddleware: ErrorRequestHandler = async (err, _req, res) => {
     console.error(err);
     if (res.json) {
         res.json({
             error: err?.message || "Internal Server Error",
         });
     } else {
-        reportError(err, "# DEFAULT MIDDLEWARE");
+        await reportError(err, "# DEFAULT MIDDLEWARE");
     }
 };
 

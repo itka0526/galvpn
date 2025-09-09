@@ -71,7 +71,7 @@ usersRouter.get("/users", async (req, res) => {
         return res.status(200).json(user);
     } catch (error) {
         console.error(error);
-        reportError(typeof error === "object" ? JSON.stringify(error) : `${error}`);
+        await reportError(typeof error === "object" ? JSON.stringify(error) : `${error}`);
         return res.status(401).json({ message: "Could not fulfill request." });
     }
 });
@@ -97,7 +97,7 @@ usersRouter.put("/users/language", async (req, res) => {
         return res.status(200).json({ user, message: req.t("lng_changed", { lng: user.preferedLanguage }) });
     } catch (error) {
         console.error(error);
-        reportError(typeof error === "object" ? JSON.stringify(error) : `${error}`);
+        await reportError(typeof error === "object" ? JSON.stringify(error) : `${error}`);
         return res.status(500).json({ message: req.t("server_err") });
     }
 });

@@ -3,7 +3,10 @@ import { pmBot } from "../bot";
 
 pmBot.command("start", async (ctx) => {
     const userId = ctx.from?.id;
+
     if (!userId) return;
+
+    const refCode = ctx.match;
 
     await ctx.reply("🚀", {
         reply_markup: {
@@ -11,7 +14,12 @@ pmBot.command("start", async (ctx) => {
                 [
                     {
                         text: "🕹️",
-                        web_app: { url: config.nodeEnv === "production" ? `${config.CLIENT_ENDPOINT_ADDR}/galvpn` : "https://localhost:5173" },
+                        web_app: {
+                            url:
+                                config.nodeEnv === "production"
+                                    ? `${config.CLIENT_ENDPOINT_ADDR}/galvpn${refCode ? `?startattach=${refCode}` : ""}`
+                                    : "https://192.168.50.184:5173/galvpn?startattach=BOB123",
+                        },
                     },
                 ],
             ],

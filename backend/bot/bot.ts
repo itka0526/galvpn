@@ -15,6 +15,7 @@ import "./user/start";
 
 // Admin stuff
 import "./payment/response";
+import "./news/share";
 import "./admin/commands";
 
 export { bot, pmBot };

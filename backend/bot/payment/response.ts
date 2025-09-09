@@ -8,7 +8,7 @@ import { extendBySetDays } from "../extend";
 pmBot.on("callback_query:data", async (ctx) => {
     try {
         if (ctx.from.id.toString() !== config.adminID) {
-            reportError("Someone tried accessing protected endpoint.");
+            await reportError("Someone tried accessing protected endpoint.");
             return await ctx.reply("You are not the admin.");
         }
 
@@ -50,7 +50,7 @@ pmBot.on("callback_query:data", async (ctx) => {
         }
     } catch (error) {
         console.error(error);
-        return reportError(error);
+        return await reportError(error);
     } finally {
         await ctx.answerCallbackQuery();
     }

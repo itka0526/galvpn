@@ -40,7 +40,7 @@ cron.schedule("* 0/6 * * *", async () => {
         }
     } catch (error) {
         console.error(error);
-        reportError(error);
+        await reportError(error);
     }
 });
 
@@ -66,6 +66,6 @@ cron.schedule("0 12 * * *", async () => {
             await new Promise((res) => setTimeout(res, 1000));
         }
     } catch (error) {
-        reportError(error);
+        await reportError(error);
     }
 });

@@ -118,7 +118,7 @@ const deleteKey = async ({ telegramID, keyID, t }: { telegramID: User["telegramI
 
         return "Key is deleted.";
     } catch (err) {
-        reportError(err, "Code section: (F1)");
+        await reportError(err, "Code section: (F1)");
         return "Unknown error (F1)";
     }
 };

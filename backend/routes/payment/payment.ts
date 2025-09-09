@@ -38,7 +38,7 @@ paymentRouter.post("/payment", async (req, res) => {
         return res.status(200).json({ message: req.t("admin_reply") });
     } catch (err) {
         console.error(err);
-        reportError(err);
+        await reportError(err);
         return res.status(500).json({ message: req.t("server_err") });
     }
 });

@@ -30,7 +30,7 @@ referralRouter.get("/referral", async (req, res) => {
 
         return res.status(200).json({ message: req.t("success"), referrerData: { referredCount, referralCode } });
     } catch (error) {
-        reportError(error);
+        await reportError(error);
         return res.status(500).json({ message: req.t("server_err") });
     }
 });
@@ -57,7 +57,7 @@ referralRouter.post("/referral", async (req, res) => {
             return res.status(400).json({ message: req.t(message) });
         }
     } catch (err) {
-        reportError(err, "Code section: (R1)");
+        await reportError(err, "Code section: (R1)");
         return res.status(500).json({ message: req.t("server_err") });
     }
 });

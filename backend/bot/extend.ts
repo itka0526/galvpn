@@ -16,7 +16,7 @@ export const extendByOneMonth = async (telegramID: User["telegramID"]) => {
         return await prisma.user.update({ data: { activeTill }, where: { telegramID } });
     } catch (error) {
         console.error(error);
-        reportError(error);
+        await reportError(error);
         return error;
     }
 };
@@ -34,7 +34,7 @@ export const extendBySetDays = async (telegramID: User["telegramID"], days: numb
         activeTill.setDate(activeTill.getDate() + days);
         return await prisma.user.update({ data: { activeTill }, where: { telegramID } });
     } catch (error) {
-        reportError(error);
+        await reportError(error);
         console.error(error);
         return error;
     }

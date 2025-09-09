@@ -22,7 +22,7 @@ keysRouter.post("/keys", async (req, res) => {
     const keyOrMessage = await createKey({ telegramID: initData.user.id.toString() });
 
     if (!keyOrMessage) {
-        reportError(`${req.t("failed_to_create_key")} ${initData.user.id.toString()}`);
+        await reportError(`${req.t("failed_to_create_key")} ${initData.user.id.toString()}`);
         return res.status(400).json({ message: req.t("unknown") });
     }
 
@@ -31,7 +31,6 @@ keysRouter.post("/keys", async (req, res) => {
     }
 
     if (typeof keyOrMessage === "string") {
-        console.log("FIJNLASF", req.t(keyOrMessage));
         return res.status(400).json({ message: req.t(keyOrMessage) });
     }
 
@@ -53,7 +52,7 @@ keysRouter.get("/keys", async (req, res) => {
         });
         return res.status(200).json({ keys });
     } catch (err) {
-        reportError(err, "/keys GET");
+        await reportError(err, "/keys GET");
         return res.status(500).json({ message: req.t("server_err") });
     }
 });
@@ -83,14 +82,14 @@ keysRouter.delete("/keys", async (req, res) => {
         }
 
         if (message === "Unknown error (F1)") {
-            reportError(message);
+            await reportError(message);
             return res.status(500).json({ message: req.t("unknown") + " (F1)" });
         }
 
         return res.status(400).json({ message: req.t(message) });
     } catch (error) {
         console.error(error);
-        reportError(error, "Code section: (F2)");
+        await reportError(error, "Code section: (F2)");
         return res.status(400).json({ message: req.t("unknown") + " (F2)" });
     }
 });
@@ -117,7 +116,7 @@ keysRouter.get("/keys/download", async (req, res) => {
         await bot.api.sendDocument(initData.user.id, new InputFile(Buffer.from(key.configFile, "utf-8"), key.configFilePath.split("/").pop()));
         return res.status(200).json({ message: req.t("check_chat") });
     } catch (err) {
-        reportError(err, "Code section: (K1)");
+        await reportError(err, "Code section: (K1)");
         return res.status(500).json({ message: req.t("unknown") + " (K1)" });
     }
 });
@@ -154,7 +153,7 @@ keysRouter.get("/keys/stats", async (req, res) => {
         }
         return res.status(200).json(JSON.parse(keyStats));
     } catch (err) {
-        reportError(err, "Code section: (K2)");
+        await reportError(err, "Code section: (K2)");
         return res.status(500).json({ message: req.t("unknown") + " (K2)" });
     }
 });

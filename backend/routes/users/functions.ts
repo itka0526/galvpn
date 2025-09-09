@@ -31,7 +31,7 @@ async function createUser({ telegramID, activeTill, banned = false, preferedLang
             referralCode: generateReferralCode(),
         },
     });
-    reportError(user, "# NEW USER HAS JOINED");
+    await reportError(user, "# NEW USER HAS JOINED");
     return user;
 }
 

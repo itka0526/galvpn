@@ -6,8 +6,8 @@ const formatError = (s: string) => `
 ${s}
 `;
 
-export const reportError = (error: unknown, comment?: string) => {
-    bot.api.sendMessage(config.adminID, formatError(comment ?? "" + "\n" + (typeof error === "object" ? JSON.stringify(error) : `${error}`)), {
+export const reportError = async (error: unknown, comment?: string) => {
+    await bot.api.sendMessage(config.adminID, formatError(comment ?? "" + "\n" + (typeof error === "object" ? JSON.stringify(error) : `${error}`)), {
         parse_mode: "HTML",
     });
 };

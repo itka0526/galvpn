@@ -34,12 +34,12 @@ pmBot.command("news_add", async (ctx) => {
                 });
                 await new Promise((resolve) => setTimeout(resolve, 1000));
             } catch (err) {
-                reportError(err);
+                await reportError(err);
             }
         }
 
         await ctx.api.sendMessage(config.adminID, `✅ News announced to ${userIds.length} users.`);
     } catch (err) {
-        reportError(err);
+        await reportError(err);
     }
 });

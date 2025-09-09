@@ -30,7 +30,7 @@ export const ReferPage = () => {
             }
             if (res.status === HttpStatusCode.Ok) {
                 setReferrerData(res.data.referrerData);
-                setReferrerLink(`${config.botLink}?startattach=${res.data.referrerData.referralCode}`);
+                setReferrerLink(`${config.botLink}?start=${res.data.referrerData.referralCode}`);
             }
         } catch (err) {
             console.error(err);
@@ -98,7 +98,7 @@ export const ReferPage = () => {
                             <Spinner size="l" />
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center w-full gap-4 p-4 text-gray-200 bg-gray-800 border border-gray-700 rounded-md ">
+                        <div className=" flex flex-col items-center justify-center w-full gap-4 p-4 text-gray-200 bg-gray-800 border border-gray-700 rounded-md">
                             <p className="text-center">{t("referral_instruction.share")}</p>
 
                             {referrerLink && (

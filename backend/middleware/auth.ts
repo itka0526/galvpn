@@ -10,7 +10,6 @@ const TMA_authMiddleware: RequestHandler = (req, res: CustomResponse, next) => {
     // <auth-type> <auth-data>
     // <auth-type> must be "tma", and <auth-data> is Telegram Mini Apps init data.
     const [authType, authData = ""] = (req.header("authorization") || "").split(" ");
-
     if (authType === "tma") {
         try {
             // MUST VALIDATE TOKEN OR ELSE CRSF!

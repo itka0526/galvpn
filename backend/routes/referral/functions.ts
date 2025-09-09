@@ -55,7 +55,7 @@ export const referrerAddFriend = async ({ referrerCode, friendID }: { referrerCo
 
         return `You have received extra days.`;
     } catch (error) {
-        reportError(error, "# functions.ts");
+        await reportError(error, "# functions.ts");
         return "Unknown error occurred.";
     }
 };
