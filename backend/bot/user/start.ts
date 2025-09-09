@@ -11,7 +11,7 @@ pmBot.command("start", async (ctx) => {
                 [
                     {
                         text: "🌐",
-                        web_app: { url: config.nodeEnv === "production" ? config.CLIENT_ENDPOINT_ADDR ?? "" : "https://localhost:5173" },
+                        web_app: { url: config.nodeEnv === "production" ? `${config.CLIENT_ENDPOINT_ADDR}/galvpn` : "https://localhost:5173" },
                     },
                 ],
             ],
