@@ -4,6 +4,7 @@ import i18Middleware from "i18next-http-middleware";
 import path from "path";
 import config from "./config";
 
+console.log("PATH:", path.resolve(process.cwd(), "locales/{{lng}}/{{ns}}.json"));
 i18next
     .use(i18NexFsBackend)
     .use(i18Middleware.LanguageDetector)
@@ -11,7 +12,7 @@ i18next
         fallbackLng: "en",
         load: "languageOnly",
         backend: {
-            loadPath: path.resolve(process.cwd(), "locales/{{lng}}/{{ns}}.json"),
+            loadPath: path.resolve(process.cwd(), "../locales/{{lng}}/{{ns}}.json"),
         },
         preload: ["en", "ru", "mn"],
         debug: config.nodeEnv === "development",
