@@ -45,6 +45,8 @@ app.get("/", (req, res) => {
     res.send(req.t("index"));
 });
 
+app.use("/public", express.static("public"));
+
 app.use(TMA_authMiddleware);
 
 app.use(usersRouter);

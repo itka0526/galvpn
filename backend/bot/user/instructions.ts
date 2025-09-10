@@ -1,13 +1,15 @@
-import { InputFile, InputMediaVideo } from "grammy/types";
+import { InputMediaVideo } from "grammy/types";
 import { pmBot } from "../bot";
-import path from "path";
+import config from "../../config";
 
-const instructionVideos = [path.join(__dirname, "../assets/instructions/iOS.mp4")];
+const videoBaseURL = config.nodeEnv === "production" ? config.domain : "http://localhost:4000";
+
+const instructionVideos = [videoBaseURL + "/public/iOS.mp4"];
 
 pmBot.command("instructions", async (ctx) => {
     const mediaGroup: InputMediaVideo[] = instructionVideos.map((file) => ({
         type: "video",
-        media: new InputFile(file),
+        media: file,
         caption: `📖 ${file.split("/").pop()} `,
     }));
 
