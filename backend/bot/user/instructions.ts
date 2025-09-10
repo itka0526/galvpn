@@ -1,6 +1,5 @@
 import { InputFile, InputMediaVideo } from "grammy/types";
 import { pmBot } from "../bot";
-import config from "../../config";
 import path from "path";
 
 const instructionVideos = [path.resolve(process.cwd(), "/public/iOS.mp4")];
