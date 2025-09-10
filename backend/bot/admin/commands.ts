@@ -28,12 +28,10 @@ pmBot.command("user", async (ctx) => {
         return await ctx.reply("ℹ️ Invalid userID.");
     }
     const user = await prisma.user.findUnique({ where: { telegramID: userID } });
-    if (!user) return await ctx.reply(`ℹ️ User not found.`, { parse_mode: "HTML" });
+    if (!user) await ctx.reply(`ℹ️ User not found.`, { parse_mode: "HTML" });
+    else await ctx.reply(`<code>${JSON.stringify(user, null, 2)}</code>`, { parse_mode: "HTML" });
 
     await ctx.reply(`ℹ️ Searching user`, { parse_mode: "HTML" });
-
-    await ctx.reply(`<code>${JSON.stringify(user, null, 2)}</code>`, { parse_mode: "HTML" });
-
     return await getUserDataExtended({ ctx, userID });
 });
 
