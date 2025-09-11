@@ -2,7 +2,7 @@ import { InputFile, InputMediaVideo } from "grammy/types";
 import { pmBot } from "../bot";
 import path from "path";
 
-const instructionVideos = [path.resolve(process.cwd(), "./public/iOS.mp4")];
+const instructionVideos = [path.resolve(process.cwd(), "./public/iOS.mp4"), path.resolve(process.cwd(), "./public/mac.mp4")];
 
 pmBot.command("instructions", async (ctx) => {
     const mediaGroup: InputMediaVideo[] = instructionVideos.map((file) => ({
