@@ -4,10 +4,12 @@ import { globalConfig } from "@shared/globalConfig";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 import { AccountDetails } from "./AccountDetails";
 import { CheckPaymentButton } from "./CheckPaymentButton";
+import { useTranslation } from "react-i18next";
 
 export const PaymentPage: FC = () => {
     const { tgWebAppData } = retrieveLaunchParams();
     const userID = tgWebAppData?.user?.id ?? "MGLZ";
+    const { t } = useTranslation();
     return (
         <Page back={true}>
             <main className="pt-28 flex flex-col items-center justify-center flex-1 w-full max-w-xl gap-4 p-4">
@@ -15,9 +17,10 @@ export const PaymentPage: FC = () => {
                 <div className="space-y-4">
                     <div className="flex flex-col items-center gap-4 space-x-3">
                         <p className="text-pretty text-sm text-center text-blue-400">
-                            Per month <span className="text-red-400">{globalConfig.paymentAmountPerMonth}</span> rubles.
+                            {t("pay.p1")}
+                            <span className="text-red-400">{globalConfig.paymentAmountPerMonth}</span> {t("pay.p2")}
                             <br />
-                            Enter the following text "<span className="text-red-400">{userID}</span>" as a comment.
+                            {t("pay.p3")} "<span className="text-red-400">{userID}</span>" {t("pay.p4")}
                             <br />
                             <br />
                             <span className="text-red-400">
@@ -28,10 +31,7 @@ export const PaymentPage: FC = () => {
                             <CheckPaymentButton />
                             <br />
                             <br />
-                            <em>
-                                After the payment press the "I've paid" button. Within 15 minutes your subscription will be extended. Contact me for
-                                issues.
-                            </em>
+                            <em>{t("pay.p5")}</em>
                         </p>
                         <a
                             href={`${globalConfig.telegram}`}

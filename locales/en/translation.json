@@ -78,5 +78,12 @@
     "sent": "sent",
     "referral_hint": "🎁 You joined with a referral code: *{{code}}*\n\nYou'll get bonus days once you sign up!",
     "start_button": "🕹️ Start",
-    "welcome": { "p1": "👋 Welcome!", "p2": "To get started, create your first key using the 'Create' button in the bottom menu." }
+    "welcome": { "p1": "👋 Welcome!", "p2": "To get started, create your first key using the 'Create' button in the bottom menu." },
+    "pay": {
+        "p1": "Per month ",
+        "p2": "rubles",
+        "p3": "Enter the following text",
+        "p4": "as a comment.",
+        "p5": " After the payment press the 'Check' button. Within 15 minutes your subscription will be extended. Contact me for further issues."
+    }
 }
