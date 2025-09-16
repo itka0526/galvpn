@@ -49,12 +49,10 @@ app.get("/", (req, res) => {
 
 app.use("/public", express.static("public"));
 
-app.use(TMA_authMiddleware);
-
-app.use(usersRouter);
-app.use(keysRouter);
-app.use(paymentRouter);
-app.use(referralRouter);
+app.use(usersRouter, TMA_authMiddleware);
+app.use(keysRouter, TMA_authMiddleware);
+app.use(paymentRouter, TMA_authMiddleware);
+app.use(referralRouter, TMA_authMiddleware);
 
 app.use(defaultErrorMiddleware);
 
