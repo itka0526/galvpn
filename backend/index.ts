@@ -14,11 +14,13 @@ import https from "https";
 import http from "http";
 import fs from "fs";
 import { i18Middleware, i18next } from "./i18n";
+import jobsRouter from "./routes/jobs/jobs";
 
 const app = express();
 
 app.use(express.json());
 app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
+app.use(jobsRouter);
 app.use(i18Middleware.handle(i18next));
 
 app.use(
