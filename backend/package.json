@@ -8,8 +8,7 @@
         "build": "prisma generate && tsc",
         "deploy": "npm run build && npm run start",
         "lint": "eslint './**/*.ts'",
-        "git": "git pull && npm run build",
-        "server": "npm run build && kill $(lsof -t -i:443) && rm /var/run/crond.reboot && service cron restart"
+        "git": "git pull && npm run build"
     },
     "keywords": [],
     "author": "",
