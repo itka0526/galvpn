@@ -76,9 +76,32 @@ echo "0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; 
 
 -   Add your key and cert paths to backend/.env
 
-### Persistance
+### DevOPS
 
 ```
-crontab -e
-@reboot /root/galvpn/backend && /usr/bin/npm run start >> /root/log.txt 2>&1
+vim /etc/systemd/system/galvpn.service
+```
+
+```
+[Unit]
+Description=GalVPN Node.js Service
+After=network-online.target
+Wants=network-online.target
+
+
+[Service]
+ExecStart=/usr/bin/node /root/galvpn/backend/dist/index.js
+WorkingDirectory=/root/galvpn/backend
+Restart=always
+RestartSec=5
+StandardOutput=append:/root/log.txt
+StandardError=append:/root/log.txt
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+systemctl daemon-reload
 ```

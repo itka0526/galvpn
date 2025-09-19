@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import config from "./config";
 import usersRouter from "./routes/users/users";
 import cors from "cors";
@@ -49,10 +49,16 @@ app.get("/", (req, res) => {
 
 app.use("/public", express.static("public"));
 
-app.use(usersRouter, TMA_authMiddleware);
-app.use(keysRouter, TMA_authMiddleware);
-app.use(paymentRouter, TMA_authMiddleware);
-app.use(referralRouter, TMA_authMiddleware);
+const protectedRouter = Router();
+
+protectedRouter.use(TMA_authMiddleware);
+
+protectedRouter.use(usersRouter);
+protectedRouter.use(keysRouter);
+protectedRouter.use(paymentRouter);
+protectedRouter.use(referralRouter);
+
+app.use(protectedRouter);
 
 app.use(defaultErrorMiddleware);
 
