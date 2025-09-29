@@ -28,22 +28,18 @@ export async function freezeKeys() {
 
         const sendQueue: Array<() => Promise<void>> = [];
 
-        for (const { telegramID, preferedLanguage, keys } of expiredUsers) {
-            if (keys.length) {
-                sendQueue.push(async () => {
-                    await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
-                });
-            }
+        for (const { telegramID, preferedLanguage } of expiredUsers) {
+            sendQueue.push(async () => {
+                await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
+            });
         }
 
         // Freeze active keys
         if (config.nodeEnv !== "development") {
             console.log(
-                `Froze user keys: [${expiredUsers
-                    .filter(({ keys }) => keys.length)
-                    .map(
-                        ({ telegramID, keys }) => `"${telegramID}: [${keys.map(({ configFilePath }) => `"${configFilePath.split("/").pop()} "`)}]" `
-                    )}]`
+                `Froze user keys: [${expiredUsers.map(
+                    ({ telegramID, keys }) => `"${telegramID}: [${keys.map(({ configFilePath }) => `"${configFilePath.split("/").pop()} "`)}]" `
+                )}]`
             );
             for (const { keys } of expiredUsers) {
                 for (const { configFilePath } of keys) {
@@ -77,7 +73,10 @@ export const notifyExpiration = async () => {
     try {
         const usersToNotify = await prisma.user.findMany({
             where: {
-                OR: [{ activeTill: { lt: now } }, { activeTill: { lte: threeDaysFromNow, gte: now } }],
+                activeTill: {
+                    gte: now,
+                    lte: threeDaysFromNow,
+                },
             },
             select: {
                 activeTill: true,
