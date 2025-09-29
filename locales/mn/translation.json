@@ -25,7 +25,7 @@
     },
     "client_not_found": "Хэрэглэгчийн нэр олдсонгүй.",
     "expiration_message": "Таны эрх дууссан.",
-    "expiration_message_2": "Таны эрх 3 хоногийн дараа дуусна.",
+    "expiration_message_2": "Таны эрх удахгүй дуусна.",
     "admin_notif": {
         "title": "Хэрэглэгч эрхээ сунгалаа.",
         "field_1": "Хэрэглэгч",

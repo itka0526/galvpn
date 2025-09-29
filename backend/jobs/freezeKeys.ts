@@ -22,8 +22,18 @@ export async function freezeKeys() {
             select: {
                 telegramID: true,
                 keys: { select: { configFilePath: true } },
+                preferedLanguage: true,
             },
         });
+
+        const sendQueue: Array<() => Promise<void>> = [];
+
+        for (const { telegramID, preferedLanguage } of expiredUsers) {
+            sendQueue.push(async () => {
+                await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
+            });
+        }
+
         // Freeze active keys
         if (config.nodeEnv !== "development") {
             console.log(
@@ -38,6 +48,17 @@ export async function freezeKeys() {
                 }
             }
         }
+
+        await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.map((x) => x.telegramID))}`);
+
+        // Send notifications
+        (async function processQueue() {
+            while (sendQueue.length) {
+                const job = sendQueue.shift();
+                if (job) await job();
+                await new Promise((res) => setTimeout(res, 5000));
+            }
+        })();
     } catch (error) {
         console.error(error);
         await reportError(error);
@@ -60,9 +81,12 @@ export const notifyExpiration = async () => {
                 preferedLanguage: true,
             },
         });
-        for (const { telegramID, activeTill, preferedLanguage } of usersToNotify) {
-            await bot.api.sendMessage(telegramID, activeTill <= now ? expirationMessage(preferedLanguage) : soonToBeExpiredMessage(preferedLanguage));
-            await new Promise((res) => setTimeout(res, 1000));
+
+        await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.map((x) => x.telegramID))}`);
+
+        for (const { telegramID, preferedLanguage } of usersToNotify) {
+            await bot.api.sendMessage(telegramID, soonToBeExpiredMessage(preferedLanguage));
+            await new Promise((res) => setTimeout(res, 5000));
         }
     } catch (error) {
         await reportError(error);

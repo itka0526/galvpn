@@ -25,7 +25,7 @@
     },
     "client_not_found": "Client name not found.",
     "expiration_message": "Your subscription has ended.",
-    "expiration_message_2": "Your subscription ends in 3 days.",
+    "expiration_message_2": "Your subscription ends soon.",
     "admin_notif": {
         "title": "User has paid subscription.",
         "field_1": "User",

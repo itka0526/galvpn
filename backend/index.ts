@@ -5,7 +5,7 @@ import cors from "cors";
 import { TMA_authMiddleware } from "./middleware/auth";
 import { defaultErrorMiddleware } from "./middleware/error";
 import keysRouter from "./routes/keys/keys";
-import "./cron";
+import "./";
 import paymentRouter from "./routes/payment/payment";
 import { webhookCallback } from "grammy";
 import { bot } from "./bot/bot";
@@ -15,6 +15,8 @@ import http from "http";
 import fs from "fs";
 import { i18Middleware, i18next } from "./i18n";
 import jobsRouter from "./routes/jobs/jobs";
+import { freezeKeys, notifyExpiration } from "./jobs/freezeKeys";
+import { reportError } from "./bot/reportError";
 
 const app = express();
 
@@ -45,6 +47,17 @@ app.use(
 
 app.get("/", (req, res) => {
     res.send(req.t("index"));
+});
+
+app.get("/", async (_, res) => {
+    try {
+        await freezeKeys();
+        await notifyExpiration();
+        res.send("*** MANUAL JOB COMPLETE ***");
+    } catch (error) {
+        await reportError(error);
+        res.send("*** MANUAL JOB FAILED ***");
+    }
 });
 
 app.use("/public", express.static("public"));
