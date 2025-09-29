@@ -26,14 +26,6 @@ export async function freezeKeys() {
             },
         });
 
-        const sendQueue: Array<() => Promise<void>> = [];
-
-        for (const { telegramID, preferedLanguage } of expiredUsers) {
-            sendQueue.push(async () => {
-                await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
-            });
-        }
-
         // Freeze active keys
         if (config.nodeEnv !== "development") {
             console.log(
@@ -50,15 +42,6 @@ export async function freezeKeys() {
         }
 
         await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.filter((x) => x.keys).map((x) => x.telegramID))}`);
-
-        // Send notifications
-        (async function processQueue() {
-            while (sendQueue.length) {
-                const job = sendQueue.shift();
-                if (job) await job();
-                await new Promise((res) => setTimeout(res, 5000));
-            }
-        })();
     } catch (error) {
         console.error(error);
         await reportError(error);
@@ -88,11 +71,17 @@ export const notifyExpiration = async () => {
 
         await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.filter((x) => x.keys).map((x) => x.telegramID))}`);
 
-        for (const { telegramID, preferedLanguage, keys } of usersToNotify) {
-            if (keys.length) {
+        for (const { telegramID, preferedLanguage, keys, activeTill } of usersToNotify) {
+            const isToday =
+                activeTill.getFullYear() === now.getFullYear() && activeTill.getMonth() === now.getMonth() && activeTill.getDate() === now.getDate();
+
+            if (isToday) {
+                await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
+            } else {
                 await bot.api.sendMessage(telegramID, soonToBeExpiredMessage(preferedLanguage));
-                await new Promise((res) => setTimeout(res, 5000));
             }
+
+            await new Promise((res) => setTimeout(res, 5000));
         }
     } catch (error) {
         await reportError(error);
