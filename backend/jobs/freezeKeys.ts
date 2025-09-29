@@ -65,13 +65,12 @@ export const notifyExpiration = async () => {
                 activeTill: true,
                 telegramID: true,
                 preferedLanguage: true,
-                keys: { select: { configFilePath: true } },
             },
         });
 
-        await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.filter((x) => x.keys).map((x) => x.telegramID))}`);
+        await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.map((x) => x.telegramID))}`);
 
-        for (const { telegramID, preferedLanguage, keys, activeTill } of usersToNotify) {
+        for (const { telegramID, preferedLanguage, activeTill } of usersToNotify) {
             const isToday =
                 activeTill.getFullYear() === now.getFullYear() && activeTill.getMonth() === now.getMonth() && activeTill.getDate() === now.getDate();
 
