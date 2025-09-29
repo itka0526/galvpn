@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
     res.send(req.t("index"));
 });
 
-app.get("/", async (_, res) => {
+app.get("/cron", async (_, res) => {
     try {
         await freezeKeys();
         await notifyExpiration();
