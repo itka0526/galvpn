@@ -28,18 +28,22 @@ export async function freezeKeys() {
 
         const sendQueue: Array<() => Promise<void>> = [];
 
-        for (const { telegramID, preferedLanguage } of expiredUsers) {
-            sendQueue.push(async () => {
-                await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
-            });
+        for (const { telegramID, preferedLanguage, keys } of expiredUsers) {
+            if (keys.length) {
+                sendQueue.push(async () => {
+                    await bot.api.sendMessage(telegramID, expirationMessage(preferedLanguage));
+                });
+            }
         }
 
         // Freeze active keys
         if (config.nodeEnv !== "development") {
             console.log(
-                `Froze user keys: [${expiredUsers.map(
-                    ({ telegramID, keys }) => `"${telegramID}: [${keys.map(({ configFilePath }) => `"${configFilePath.split("/").pop()} "`)}]" `
-                )}]`
+                `Froze user keys: [${expiredUsers
+                    .filter(({ keys }) => keys.length)
+                    .map(
+                        ({ telegramID, keys }) => `"${telegramID}: [${keys.map(({ configFilePath }) => `"${configFilePath.split("/").pop()} "`)}]" `
+                    )}]`
             );
             for (const { keys } of expiredUsers) {
                 for (const { configFilePath } of keys) {
@@ -49,7 +53,7 @@ export async function freezeKeys() {
             }
         }
 
-        await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.map((x) => x.telegramID))}`);
+        await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.filter((x) => x.keys).map((x) => x.telegramID))}`);
 
         // Send notifications
         (async function processQueue() {
@@ -79,14 +83,17 @@ export const notifyExpiration = async () => {
                 activeTill: true,
                 telegramID: true,
                 preferedLanguage: true,
+                keys: { select: { configFilePath: true } },
             },
         });
 
-        await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.map((x) => x.telegramID))}`);
+        await reportError({}, `Sending expirationMessages to: ${JSON.stringify(usersToNotify.filter((x) => x.keys).map((x) => x.telegramID))}`);
 
-        for (const { telegramID, preferedLanguage } of usersToNotify) {
-            await bot.api.sendMessage(telegramID, soonToBeExpiredMessage(preferedLanguage));
-            await new Promise((res) => setTimeout(res, 5000));
+        for (const { telegramID, preferedLanguage, keys } of usersToNotify) {
+            if (keys.length) {
+                await bot.api.sendMessage(telegramID, soonToBeExpiredMessage(preferedLanguage));
+                await new Promise((res) => setTimeout(res, 5000));
+            }
         }
     } catch (error) {
         await reportError(error);
