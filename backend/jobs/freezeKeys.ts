@@ -41,7 +41,7 @@ export async function freezeKeys() {
             }
         }
 
-        await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.filter((x) => x.keys).map((x) => x.telegramID))}`);
+        await reportError({}, `Froze keys of: ${JSON.stringify(expiredUsers.filter((x) => x.keys.length > 0).map((x) => x.telegramID))}`);
     } catch (error) {
         console.error(error);
         await reportError(error);

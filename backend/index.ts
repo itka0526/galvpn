@@ -5,7 +5,6 @@ import cors from "cors";
 import { TMA_authMiddleware } from "./middleware/auth";
 import { defaultErrorMiddleware } from "./middleware/error";
 import keysRouter from "./routes/keys/keys";
-import "./";
 import paymentRouter from "./routes/payment/payment";
 import { webhookCallback } from "grammy";
 import { bot } from "./bot/bot";
@@ -14,15 +13,15 @@ import https from "https";
 import http from "http";
 import fs from "fs";
 import { i18Middleware, i18next } from "./i18n";
-import jobsRouter from "./routes/jobs/jobs";
 import { freezeKeys, notifyExpiration } from "./jobs/freezeKeys";
 import { reportError } from "./bot/reportError";
+
+import "./cron";
 
 const app = express();
 
 app.use(express.json());
 app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
-app.use(jobsRouter);
 app.use(i18Middleware.handle(i18next));
 
 app.use(
@@ -80,12 +79,6 @@ if (config.port === 443) {
         throw Error("SSL config missing...");
     }
     https.createServer({ cert: fs.readFileSync(config.SSLCertPath), key: fs.readFileSync(config.SSLKeyPath) }, app).listen(config.port, async () => {
-        if (!config.domain) throw new Error("Domain missing...");
-        // Set telegram webhook
-        console.log(`Don't forget to set the webhook manually.`);
-        // if (await bot.api.setWebhook(`https://${config.domain}/bot`)) {
-        //     console.log("Telegram webhook domain set: ", config.domain);
-        // }
         console.log(`HTTPS server is running on port ${config.port}...`);
     });
 } else {
