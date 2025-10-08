@@ -1,6 +1,7 @@
 import config from "../../config";
 import { i18next } from "../../i18n";
 import { pmBot } from "../bot";
+import { retrieveInstructions } from "./instructions";
 
 function normalizeLang(code?: string): string {
     if (!code) return "en";
@@ -33,7 +34,11 @@ pmBot.command("start", async (ctx) => {
         await ctx.reply(hintMessage, { parse_mode: "MarkdownV2" });
     }
 
-    await ctx.reply("🚀", {
+    const instructions = await retrieveInstructions();
+
+    await ctx.replyWithMediaGroup(instructions);
+
+    await ctx.reply("▶️ Start", {
         reply_markup: {
             inline_keyboard: [
                 [

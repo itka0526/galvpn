@@ -32,7 +32,8 @@ const TMA_authMiddleware: RequestHandler = (req, res: CustomResponse, next) => {
             return next(error);
         }
     }
-    return next(new Error(req.t("unauth")));
+    // Then its an unprotect route, so it should go to next handler
+    return next();
 };
 
 export { TMA_authMiddleware };

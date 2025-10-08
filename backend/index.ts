@@ -21,8 +21,8 @@ import "./cron";
 const app = express();
 
 app.use(express.json());
-app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
 app.use(i18Middleware.handle(i18next));
+app.use(config.BOT_WEBHOOK_PATH, webhookCallback(bot, "express"));
 
 app.use(
     cors({

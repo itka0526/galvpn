@@ -161,7 +161,7 @@ export const DashboardPage = () => {
                     ) : (
                         <>
                             {user ? (
-                                <div className="flex items-center justify-between w-full px-3 py-2 text-gray-200 bg-gray-800 border border-gray-700 rounded-md">
+                                <div className="flex items-center justify-between w-full p-3 text-gray-200 bg-gray-800 border border-gray-700 rounded-md">
                                     <ShowStatus user={user} />
                                     <Select value={i18n.language} onValueChange={handleLanguageChange}>
                                         <SelectTrigger>

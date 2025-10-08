@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowDownUp, Calendar, ChartPie, Download, LucideQrCode, Trash2, XIcon } from "lucide-react";
+import { ArrowDownUp, Calendar, ChartPie, Download, FileKey2, LucideQrCode, Trash2, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import QRCode from "react-qr-code";
 import toast from "react-hot-toast";
@@ -15,10 +15,11 @@ import { HttpStatusCode } from "axios";
 import { KeyStatsType } from "@shared/types";
 import { humanFileSize } from "./human-readable-file-size";
 import { useTranslation } from "react-i18next";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 type ConfigItemProps = { item: Key; setUserKeys: Dispatch<SetStateAction<Key[]>> };
 
-export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKeys }: ConfigItemProps) {
+export function ConfigItem({ item: { configFile, id, configFilePath, createdAt }, setUserKeys }: ConfigItemProps) {
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
 
@@ -115,15 +116,35 @@ export function ConfigItem({ item: { configFile, id, configFilePath }, setUserKe
                 </div>
             )}
             <CardContent className="flex flex-col w-full p-0" aria-disabled={deletingKey}>
-                <Textarea
-                    readOnly
-                    value={`# ${fileName}\n\n${configFile}`}
-                    className={cn(
-                        `focus:ring-gray-700 focus:border-gray-700 h-64 mb-4 font-mono text-sm text-gray-200 bg-gray-800 border-gray-700`,
-                        deletingKey ? "blur-xs" : ""
-                    )}
-                    placeholder="Nothing..."
-                />
+                <Accordion type="single" collapsible className="w-full" disabled={deletingKey}>
+                    <AccordionItem value="config">
+                        <AccordionTrigger className="flex items-center justify-between w-full p-3 text-gray-200 bg-gray-800 border border-gray-700 rounded-md mb-4">
+                            <div className="flex items-center gap-3">
+                                <FileKey2 className=" text-gray-100" size={24} />
+                                <div className="flex flex-col text-left">
+                                    <span className="font-medium text-gray-100">{fileName}</span>
+                                    <span className="text-xs text-gray-500">
+                                        {new Date(createdAt).toLocaleString(i18n.language, {
+                                            dateStyle: "medium",
+                                            timeStyle: "short",
+                                        })}
+                                    </span>
+                                </div>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                            <Textarea
+                                readOnly
+                                value={configFile}
+                                className={cn(
+                                    "focus:ring-gray-700 focus:border-gray-700 h-56 mb-4 font-mono text-sm text-gray-200 bg-gray-800 border-gray-700"
+                                )}
+                                placeholder="Nothing..."
+                            />
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+
                 <div className=" flex gap-4">
                     <TooltipProvider>
                         <Tooltip>

@@ -1,19 +1,29 @@
 import { InputFile, InputMediaVideo } from "grammy/types";
 import { pmBot } from "../bot";
 import path from "path";
+import fs from "fs";
+import { reportError } from "../reportError";
 
-const instructionVideos = [
-    path.resolve(process.cwd(), "./public/iOS.mp4"),
-    path.resolve(process.cwd(), "./public/mac.mp4"),
-    path.resolve(process.cwd(), "./public/payment.mp4"),
-];
+export const retrieveInstructions = async () => {
+    const dirPath = path.resolve(process.cwd(), "./public");
 
-pmBot.command("instructions", async (ctx) => {
-    const mediaGroup: InputMediaVideo[] = instructionVideos.map((file) => ({
+    const files = fs.readdirSync(dirPath).filter((f) => f.endsWith("./mp4"));
+
+    const mediaGroup: InputMediaVideo[] = files.map((file) => ({
         type: "video",
-        media: new InputFile(file),
-        caption: `📖 ${file.split("/").pop()?.replace(".mp4", "")} `,
+        media: new InputFile(path.join(dirPath, file)),
+        caption: `📖 ${file.replace(".mp4", "").toUpperCase()} `,
     }));
 
-    await ctx.replyWithMediaGroup(mediaGroup);
+    return mediaGroup;
+};
+
+pmBot.command("instructions", async (ctx) => {
+    try {
+        const mediaGroup = await retrieveInstructions();
+        return await ctx.replyWithMediaGroup(mediaGroup);
+    } catch (error) {
+        await reportError(error, "Instructions:");
+        return await ctx.reply("❌❌❌");
+    }
 });

@@ -1,5 +1,5 @@
-import { cn } from "@/helpers/cn";
 import { User } from "@shared/prisma";
+import { ShieldAlert, ShieldBan, ShieldCheck, ShieldX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const ShowStatus = ({ user }: { user: User | null }) => {
@@ -8,24 +8,72 @@ export const ShowStatus = ({ user }: { user: User | null }) => {
     const now = new Date();
 
     if (!user) {
-        return <span className="font-semibold text-red-500">{t("unknown_user")}</span>;
+        return (
+            <div className="flex items-center gap-3 text-red-400">
+                <ShieldAlert size={24} />
+                <div className="flex flex-col text-left">
+                    <span className="font-medium">{t("unknown_user")}</span>
+                    <span className="text-xs">{t("unknown")}</span>
+                </div>
+            </div>
+        );
     }
 
     if (user.banned) {
-        return <span className="font-semibold text-red-400">{t("User is banned")} </span>;
+        return (
+            <div className="flex items-center gap-3 text-red-400">
+                <ShieldBan size={24} />
+                <div className="flex flex-col text-left">
+                    <span className="font-medium">{t("User is banned")}</span>
+                    <span className="text-xs">{t("admin_reply")}</span>
+                </div>
+            </div>
+        );
     }
 
     if (new Date(user.activeTill) > now) {
         return (
-            <span className={cn("font-semibold text-green-400", i18n.language !== "en" ? "text-sm" : "")}>
-                {t("active_till", { date: new Date(user.activeTill).toLocaleString(i18n.language, { dateStyle: "short", timeStyle: "short" }) })}
-            </span>
+            <div className="flex items-center gap-3 text-green-400">
+                <ShieldCheck size={24} />
+                <div className="flex flex-col text-left">
+                    <span className="font-medium">{t("active_till")}</span>
+                    <span className="text-xs">
+                        {new Date(user.activeTill).toLocaleString(i18n.language, {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                        })}
+                        {` [${user.telegramID}]`}
+                    </span>
+                </div>
+            </div>
         );
     }
 
     if (new Date(user.activeTill) < now) {
-        return <span className="font-semibold text-red-400">{t("inactive")}</span>;
+        return (
+            <div className="flex items-center gap-3 text-red-400">
+                <ShieldX size={24} />
+                <div className="flex flex-col text-left">
+                    <span className="font-medium">{t("inactive")}</span>
+                    <span className="text-xs">
+                        {new Date(user.activeTill).toLocaleString(i18n.language, {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                        })}
+                        {` [${user.telegramID}]`}
+                    </span>
+                </div>
+            </div>
+        );
     }
 
-    return <span className="font-semibold text-red-500">{t("unknown_user")}</span>;
+    return (
+        <div className="flex items-center gap-3 text-red-400">
+            <ShieldAlert size={24} />
+            <div className="flex flex-col text-left">
+                <span className="font-medium">{t("unknown_user")}</span>
+                <span className="text-xs">{t("Unknown error occurred.")}</span>
+            </div>
+        </div>
+    );
 };
