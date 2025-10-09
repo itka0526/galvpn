@@ -6,7 +6,7 @@ import { reportError } from "../reportError";
 pmBot.command("news", async (ctx) => {
     await ctx.reply(
         `
-📕 Run /new_news command to add news.
+📕 Run /new_news_s command to add news.
    The first line will be ignored, you can add additional flags such as '#silent' or '$en' or '$ru' or '$mn'
    the rest of the content will
    be sent to all telegram users who are currently in database.
@@ -15,12 +15,12 @@ pmBot.command("news", async (ctx) => {
     );
 });
 
-pmBot.command("new_news", async (ctx) => {
+pmBot.command("new_news_s", async (ctx) => {
     const rawData = ctx.message.text.split("\n");
     const content = rawData.slice(1).join("\n");
 
     try {
-        const specificLanguage = rawData.includes("$en") ? "en" : rawData.includes("$ru") ? "ru" : rawData.includes("$mn") ? "mn" : null;
+        const specificLanguage = ctx.message.text.includes("$en") ? "en" : rawData.includes("$ru") ? "ru" : rawData.includes("$mn") ? "mn" : null;
 
         let users =
             config.nodeEnv === "production"
@@ -35,17 +35,17 @@ pmBot.command("new_news", async (ctx) => {
 
         await ctx.api.sendMessage(
             config.adminID,
-            `📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage}` : ""}`
+            `📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage}. ` : ""}`
         );
 
         let i = 1;
-        for (const userId of userIds) {
+        for (const _ of userIds) {
             if (i % 7 === 0) {
                 await ctx.api.sendMessage(config.adminID, `⚙️ ${i / userIds.length}`);
             }
             try {
-                await ctx.api.sendMessage(userId, content, {
-                    disable_notification: rawData.includes("#silent"),
+                await ctx.api.sendMessage(config.adminID, content, {
+                    disable_notification: ctx.message.text.includes("#silent"),
                 });
                 await new Promise((resolve) => setTimeout(resolve, 5000));
             } catch (err) {
