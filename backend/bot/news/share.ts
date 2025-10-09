@@ -2,22 +2,30 @@ import config from "../../config";
 import prisma from "../../db";
 import { pmBot } from "../bot";
 import { reportError } from "../reportError";
+// import { reportError } from "../reportError";
 
 pmBot.command("news", async (ctx) => {
     await ctx.reply(
         `
-📕 Run /new_news_sss command to add news.
+📕 Run /new_news_s5 command to add news.
    The first line will be ignored, you can add additional flags such as '#silent' or '$en' or '$ru' or '$mn'
-   the rest of the content will
+   Content must start with %content. The content will
    be sent to all telegram users who are currently in database.
 `,
         { parse_mode: "HTML" }
     );
 });
 
-pmBot.command("new_news_sss", async (ctx) => {
-    const rawData = ctx.message.text.split("\n");
-    const content = rawData.slice(1).join("\n");
+pmBot.command("new_news_s6", async (ctx) => {
+    if (ctx.from.id.toString() !== config.adminID) {
+        return ctx.reply("You are not admin.");
+    }
+
+    const content = ctx.message.text.split("%content")[1];
+
+    if (!content) {
+        return await ctx.reply("Content is not available.");
+    }
 
     const specificLanguage = ctx.message.text.includes("$en")
         ? "en"
@@ -27,10 +35,9 @@ pmBot.command("new_news_sss", async (ctx) => {
         ? "mn"
         : null;
 
-    let users =
-        config.nodeEnv === "production"
-            ? await prisma.user.findMany({ select: { telegramID: true, preferedLanguage: true } })
-            : [{ telegramID: config.adminID, preferedLanguage: "en" }];
+    const isSilent = ctx.message.text.includes("#silent");
+
+    let users = await prisma.user.findMany({ select: { telegramID: true, preferedLanguage: true } });
 
     if (specificLanguage) {
         users = users.filter(({ preferedLanguage }) => preferedLanguage === specificLanguage);
@@ -38,20 +45,16 @@ pmBot.command("new_news_sss", async (ctx) => {
 
     const userIds = users.map(({ telegramID }) => Number(telegramID));
 
-    await ctx.api.sendMessage(
-        config.adminID,
-        `📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage}. ` : ""}`
-    );
+    await ctx.reply(`📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage.toUpperCase()}. ` : ""}`);
 
     let i = 1;
-    for (const _ of userIds) {
+    for (const userID of userIds) {
         if (i % 7 === 0) {
-            await ctx.api.sendMessage(config.adminID, `⚙️ ${i / userIds.length}`);
+            await ctx.reply(`⚙️ ${i / userIds.length}`);
         }
+
         try {
-            await ctx.api.sendMessage(config.adminID, content, {
-                disable_notification: ctx.message.text.includes("#silent"),
-            });
+            if (config.adminID !== userID.toString()) await ctx.api.sendMessage(userID, content, { disable_notification: isSilent });
             await new Promise((resolve) => setTimeout(resolve, 5000));
         } catch (err) {
             await reportError(err);
