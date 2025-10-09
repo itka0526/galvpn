@@ -45,7 +45,9 @@ pmBot.command("new_news_s6", async (ctx) => {
 
     const userIds = users.map(({ telegramID }) => Number(telegramID));
 
-    await ctx.reply(`📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage.toUpperCase()}. ` : ""}`);
+    await ctx.reply(
+        `📢 Announcing to ${JSON.stringify(userIds)} users. ${specificLanguage ? `Specified Language: ${specificLanguage.toUpperCase()}. ` : ""}`
+    );
 
     let i = 1;
     for (const userID of userIds) {
