@@ -17,7 +17,6 @@ import "./user/instructions";
 
 // Admin stuff
 import "./cbQueryData";
-import "./news/share";
 import "./admin/commands";
 
 export { bot, pmBot };
