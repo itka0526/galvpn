@@ -48,3 +48,14 @@ ${t("admin_cmds.title", { lng: "en" })}
 # ${t("admin_cmds.message")}
 /message_to
 `;
+
+export const help = () => `
+📩 <b>Invite your friend</b>
+  - 1 month to you + 1 month to your friend
+
+🚨 <b>Admin</b>
+  - @itka0526
+
+📣 <b>Join channel for updates</b>
+  - https://t.me/+VJlZJrjLMOIzZjUy
+`;

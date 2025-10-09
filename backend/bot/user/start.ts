@@ -5,6 +5,8 @@ import { pmBot } from "../bot";
 import { normalizeLang } from "../helpers";
 import path from "path";
 import fs from "fs";
+import prisma from "../../db";
+import { help } from "../../messages";
 
 function randomIntFromInterval(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -72,8 +74,10 @@ pmBot.command("start", async (ctx) => {
     const sticker = retrieveRandomSticker();
 
     if (!sticker) {
-        return ctx.reply("🚀", replyMarkup);
+        ctx.reply("🚀", replyMarkup);
     } else {
-        return await ctx.replyWithSticker(sticker, replyMarkup);
+        await ctx.replyWithSticker(sticker, replyMarkup);
     }
+
+    return await ctx.reply(help(), { disable_notification: true, parse_mode: "HTML" });
 });
