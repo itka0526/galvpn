@@ -7,7 +7,7 @@ pmBot.command("news", async (ctx) => {
     await ctx.reply(
         `
 📕 Run /new_news command to add news.
-   The first line will be ignored, you can add additional flags such as '#silent'
+   The first line will be ignored, you can add additional flags such as '#silent' or '$en' or '$ru' or '$mn'
    the rest of the content will
    be sent to all telegram users who are currently in database.
 `,
@@ -20,12 +20,23 @@ pmBot.command("new_news", async (ctx) => {
     const content = rawData.slice(1).join("\n");
 
     try {
-        const users =
-            config.nodeEnv === "production" ? await prisma.user.findMany({ select: { telegramID: true } }) : [{ telegramID: config.adminID }];
+        const specificLanguage = rawData.includes("$en") ? "en" : rawData.includes("$ru") ? "ru" : rawData.includes("$mn") ? "mn" : null;
+
+        let users =
+            config.nodeEnv === "production"
+                ? await prisma.user.findMany({ select: { telegramID: true, preferedLanguage: true } })
+                : [{ telegramID: config.adminID, preferedLanguage: "en" }];
+
+        if (specificLanguage) {
+            users = users.filter(({ preferedLanguage }) => preferedLanguage === specificLanguage);
+        }
 
         const userIds = users.map(({ telegramID }) => Number(telegramID));
 
-        await ctx.api.sendMessage(config.adminID, `📢 Announcing to ${userIds.length} users`);
+        await ctx.api.sendMessage(
+            config.adminID,
+            `📢 Announcing to ${userIds.length} users. ${specificLanguage ? `Specified Language: ${specificLanguage}` : ""}`
+        );
 
         let i = 1;
         for (const userId of userIds) {
