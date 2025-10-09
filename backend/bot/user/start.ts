@@ -1,17 +1,27 @@
+import { InputFile } from "grammy";
 import config from "../../config";
 import { i18next } from "../../i18n";
 import { pmBot } from "../bot";
-import { retrieveInstructions } from "./instructions";
+import { normalizeLang } from "../helpers";
+import path from "path";
+import fs from "fs";
 
-function normalizeLang(code?: string): string {
-    if (!code) return "en";
-    const rawBase = code.split("-");
-    if (rawBase.length <= 2) {
-        return code;
+function randomIntFromInterval(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function retrieveRandomSticker() {
+    const dirPath = path.resolve(process.cwd(), "./public/start");
+    const filesNames = fs.readdirSync(dirPath);
+
+    if (filesNames.length <= 0) {
+        return null;
     }
-    const base = rawBase[0] as string;
-    if (["en", "ru", "mn"].includes(base)) return base;
-    return "en";
+
+    const index = randomIntFromInterval(0, filesNames.length - 1);
+
+    const sticker = new InputFile(path.join(dirPath, filesNames[index] as string));
+    return sticker;
 }
 
 pmBot.command("start", async (ctx) => {
@@ -23,7 +33,8 @@ pmBot.command("start", async (ctx) => {
 
     const lang = normalizeLang(ctx.from?.language_code);
 
-    let startText = i18next.t("start_button", { lng: lang });
+    let startText = i18next.t("start_button", { lng: lang }),
+        instructionText = i18next.t("instruction_button", { lng: lang });
 
     if (refCode) {
         const hintMessage = i18next.t("referral_hint", {
@@ -34,13 +45,15 @@ pmBot.command("start", async (ctx) => {
         await ctx.reply(hintMessage, { parse_mode: "MarkdownV2" });
     }
 
-    const instructions = await retrieveInstructions();
-
-    await ctx.replyWithMediaGroup(instructions);
-
-    await ctx.reply("▶️ Start", {
+    const replyMarkup = {
         reply_markup: {
             inline_keyboard: [
+                [
+                    {
+                        text: instructionText,
+                        callback_data: "instructions",
+                    },
+                ],
                 [
                     {
                         text: startText,
@@ -54,5 +67,13 @@ pmBot.command("start", async (ctx) => {
                 ],
             ],
         },
-    });
+    };
+
+    const sticker = retrieveRandomSticker();
+
+    if (!sticker) {
+        return ctx.reply("🚀", replyMarkup);
+    } else {
+        return await ctx.replyWithSticker(sticker, replyMarkup);
+    }
 });

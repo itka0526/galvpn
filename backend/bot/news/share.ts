@@ -36,7 +36,7 @@ pmBot.command("new_news", async (ctx) => {
                 await ctx.api.sendMessage(userId, content, {
                     disable_notification: rawData.includes("#silent"),
                 });
-                await new Promise((resolve) => setTimeout(resolve, 10000));
+                await new Promise((resolve) => setTimeout(resolve, 5000));
             } catch (err) {
                 await reportError(err);
             } finally {

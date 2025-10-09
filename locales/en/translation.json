@@ -37,7 +37,8 @@
         "title": "Admin commands:",
         "all": "User IDs - No arguments",
         "extend": "Extend - telegramID is required, daysToAdd is not required defaults to 30 days",
-        "info": "User - telegramID is required"
+        "info": "User - telegramID is required",
+        "message": "Message To - telegramID is required, message is required"
     },
     "unauth": "Unauthorized.",
     "restart": "Please restart the app.",
@@ -78,6 +79,7 @@
     "sent": "sent",
     "referral_hint": "🎁 You joined with a referral code: *{{code}}*\n\nYou'll get bonus days once you sign up!",
     "start_button": "🕹️ Start",
+    "instruction_button": "📖 Instructions",
     "welcome": { "p1": "👋 Welcome!", "p2": "To get started, create your first key using the 'Create' button in the bottom menu." },
     "pay": {
         "p1": "Per month ",

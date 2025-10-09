@@ -11,11 +11,12 @@ if (config.nodeEnv === "development") {
 }
 
 // User stuff
+import "./user/me";
 import "./user/start";
 import "./user/instructions";
 
 // Admin stuff
-import "./payment/response";
+import "./cbQueryData";
 import "./news/share";
 import "./admin/commands";
 

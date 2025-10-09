@@ -33,8 +33,8 @@ export const usersList = (users: Partial<User>[]) => {
     return users.map(({ telegramID }) => `- <code>${telegramID}</code>`).join("\n");
 };
 
-export const adminCommands = `
-${t("admin_cmds.title")}:
+export const adminCommands = () => `
+${t("admin_cmds.title", { lng: "en" })}
 
 # ${t("admin_cmds.all")}
 /users
@@ -44,4 +44,7 @@ ${t("admin_cmds.title")}:
 
 # ${t("admin_cmds.info")}
 /user
+
+# ${t("admin_cmds.message")}
+/message_to
 `;
