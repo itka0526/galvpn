@@ -46,6 +46,8 @@ pmBot.command("start", async (ctx) => {
         await ctx.reply(hintMessage, { parse_mode: "MarkdownV2" });
     }
 
+    await ctx.reply(help(), { disable_notification: true, parse_mode: "HTML", link_preview_options: { show_above_text: true } });
+
     const replyMarkup = {
         reply_markup: {
             inline_keyboard: [
@@ -77,6 +79,4 @@ pmBot.command("start", async (ctx) => {
     } else {
         await ctx.replyWithSticker(sticker, replyMarkup);
     }
-
-    return await ctx.reply(help(), { disable_notification: true, parse_mode: "HTML" });
 });
