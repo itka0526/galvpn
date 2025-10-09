@@ -5,7 +5,6 @@ import { pmBot } from "../bot";
 import { normalizeLang } from "../helpers";
 import path from "path";
 import fs from "fs";
-import prisma from "../../db";
 import { help } from "../../messages";
 
 function randomIntFromInterval(min: number, max: number) {
