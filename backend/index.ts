@@ -45,17 +45,17 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-    res.send(req.t("index"));
+    return res.send(req.t("index"));
 });
 
 app.get("/cron", async (_, res) => {
     try {
         await freezeKeys();
         await notifyExpiration();
-        res.send("*** MANUAL JOB COMPLETE ***");
+        return res.send("*** MANUAL JOB COMPLETE ***");
     } catch (error) {
         await reportError(error);
-        res.send("*** MANUAL JOB FAILED ***");
+        return res.send("*** MANUAL JOB FAILED ***");
     }
 });
 
