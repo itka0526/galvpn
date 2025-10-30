@@ -127,7 +127,8 @@ export const findJobsAbove400 = async () => {
     const INTERESTED_PAY = 400;
 
     if (!YNDX_URL || !YNDX_DEVICE_ID || !YNDX_PARK_ID || !YNDX_X_DRIVER_SESSION || !YNDX_AUTH_TOKEN || !YNDX_X_MOB_ID) {
-        throw new Error("Missing yandex smena parameters. Please check environment variables.");
+        reportError("Missing yandex smena parameters. Please check environment variables.");
+        return;
     }
 
     const path = `/driver/v1/blue-collars/v6/shifts/list?device_id=${YNDX_DEVICE_ID}&park_id=${YNDX_PARK_ID}&mobcf=russia%25yandex_pro_ru_0%25default&mobpr=yandex_pro_ru_0_Y_BASE_API_0`;
@@ -141,7 +142,8 @@ export const findJobsAbove400 = async () => {
         .split(",")[0];
 
     if (!dateNow) {
-        throw new Error("Date missing from body!");
+        reportError("Date missing from body!", "YANDEX SMENA ERROR");
+        return;
     }
 
     const body = {
@@ -195,8 +197,9 @@ ${state === "available" ? "🟢 Открыта" : "🔴 Закрыта"}
             }
         );
 
+        // No jobs right now.
         if (formatedJobs.length === 0) {
-            return "No jobs right now.";
+            return;
         }
 
         const usersToNotify = [adminID];
@@ -208,5 +211,7 @@ ${state === "available" ? "🟢 Открыта" : "🔴 Закрыта"}
         }
     } catch (err) {
         reportError(err, "YANDEX SMENA ERROR");
+    } finally {
+        return;
     }
 };
