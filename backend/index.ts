@@ -17,6 +17,7 @@ import { freezeKeys, notifyExpiration } from "./jobs/freezeKeys";
 import { reportError } from "./bot/reportError";
 
 import "./cron";
+import { findJobsAbove400 } from "./jobs/yandexSmena";
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.get("/cron", async (_, res) => {
     try {
         await freezeKeys();
         await notifyExpiration();
+        await findJobsAbove400();
         return res.send("*** MANUAL JOB COMPLETE ***");
     } catch (error) {
         await reportError(error);
