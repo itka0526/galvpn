@@ -190,7 +190,7 @@ export const findJobsAbove400 = async () => {
 ℹ️ <b>${profession_name}</b>
 🏢 <b>${organization.name}</b>
 ⏳ ${moscowTime}
-📍 ${address}
+📍 ${address.street}
 💰 <b>${payment_subtitle} x ${length / 60}ч = ${payment_value}</b>
 ${state === "available" ? "🟢 Открыта" : "🔴 Закрыта"}
             `;
