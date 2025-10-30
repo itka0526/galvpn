@@ -20,6 +20,13 @@ const config = {
     SSLKeyPath: process.env["SSL_KEY_PATH"],
     SSLCertPath: process.env["SSL_CERT_PATH"],
     domain: process.env["DOMAIN"],
+    // Extra stuff
+    YNDX_URL: process.env["YNDX_URL"],
+    YNDX_DEVICE_ID: process.env["YNDX_DEVICE_ID"],
+    YNDX_PARK_ID: process.env["YNDX_PARK_ID"],
+    YNDX_X_DRIVER_SESSION: process.env["YNDX_X_DRIVER_SESSION"],
+    YNDX_AUTH_TOKEN: process.env["YNDX_AUTH_TOKEN"],
+    YNDX_X_MOB_ID: process.env["YNDX_X_MOB_ID"],
 };
 
 if (!config.BOT_TOKEN || !config.BOT_API_ID || !config.BOT_API_HASH || !config.BOT_WEBHOOK_PATH) {
