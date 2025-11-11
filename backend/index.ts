@@ -4271,6 +4271,1588 @@ app.get("/", (_, res) => {
 
 
   </div>
+  <div>
+  <h1>Old collected answers</h1>
+<div id="content" class="main-container">
+    <div id="quiz-container">
+        <h1 class="text-center mb-5">Диагностическая работа БФБО-01,02,03-22 (Осень)</h1>
+
+
+
+            <div class="row">
+
+
+<div id="q1" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 1
+            <a class="anchor-link" aria-label="Anchor" href="#q1">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие механизмов в Transformer:<br><br>1<br><br>Self-Attention<br><br>А<br><br>Добавляет информацию о порядке слов<br><br>2<br><br>Positional Encoding<br><br>Б<br><br>Позволяет учитывать разные аспекты внимания<br><br>3<br><br>Multi-Head Attention<br><br>В<br><br>Сравнивает элементы последовательности<br><br>4<br><br>Feed-Forward Layer<br><br>Г<br><br>Применяет нелинейное преобразование<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>А</li>
+
+        <li>В</li>
+
+        <li>Г</li>
+
+        <li>Б</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>4
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q2" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 2
+            <a class="anchor-link" aria-label="Anchor" href="#q2">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>1<br><br>Модель, предназначенная для принятия решений в условиях неполной информации.<br><br>А<br><br>Аффинное преобразование<br><br>2<br><br>Преобразование, используемое в системах итерируемых функций (IFS).<br><br>Б<br><br>Условная адекватность<br><br>3<br><br>Свойство модели, при котором она соответствует объекту только при определенных условиях.<br><br>В<br><br>Игровая модель<br><br>4<br><br>Этап математического моделирования, на котором производится разделение входных параметров по важности.<br><br>Г<br><br>Ранжирование<br><br>5<br><br>Тип генератора случайных чисел, в котором используется параметр c = 0.<br><br>Д<br><br>Мультипликативный генератор</p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>5</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>В</li>
+
+        <li>Б</li>
+
+        <li>Д</li>
+
+        <li>А</li>
+
+        <li>Г</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>5
+            <ul>
+
+                <li>Д (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q3" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 3
+            <a class="anchor-link" aria-label="Anchor" href="#q3">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие:<br><br>1<br><br>обучение с учителем<br><br>А<br><br>кластеризация<br><br>2<br><br>обучение без учителя<br><br>Б<br><br>регрессия<br><br>3<br><br>подготовка данных<br><br>В<br><br>заполнение пропусков<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>А</li>
+
+        <li>Б</li>
+
+        <li>В</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>3
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q4" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 4
+            <a class="anchor-link" aria-label="Anchor" href="#q4">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие между элементом и его значением в модели Тьюринга:<br><br>1<br><br>Лента<br><br>А<br><br>Символы с которыми работает модель<br><br>2<br><br>Головка<br><br>Б<br><br>Хранение информации<br><br>3<br><br>Алфавит<br><br>В<br><br>Определяет правила работы<br><br>4<br><br>Таблица переходов<br><br>Г<br><br>Считывание и запись символов<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>В</li>
+
+        <li>Б</li>
+
+        <li>Г</li>
+
+        <li>А</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>1
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q5" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 5
+            <a class="anchor-link" aria-label="Anchor" href="#q5">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие между логической операцией и ее результатом:<br><br>1<br><br>И<br><br>А<br><br>Инвертирует значение<br><br>2<br><br>ИЛИ<br><br>Б<br><br>Истинно, если истинно только одно из значений<br><br>3<br><br>НЕ<br><br>В<br><br>Истинно, если оба значения истинны<br><br>4<br><br>Исключающее ИЛИ<br><br>Г<br><br>Истинно, если хотя бы одно значение истинно<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>В</li>
+
+        <li>Г</li>
+
+        <li>Б</li>
+
+        <li>А</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>4
+            <ul>
+
+                <li>Б (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>А (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>Г (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q6" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 6
+            <a class="anchor-link" aria-label="Anchor" href="#q6">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие:<br><br>1<br><br>Разделение множества объектов на два класса<br><br>А<br><br>однофакторная регрессия<br><br>2<br><br>Исследование влияния одного признака на целевую переменную<br><br>Б<br><br>бинарная классификация<br><br>3<br><br>Исследование влияния нескольких признаков на целевую переменную<br><br>В<br><br>множественная регрессия<br><br>4<br><br>Разделение множества объектов на три и более класса<br><br>Г<br><br>мультиклассовая классификация</p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>Б</li>
+
+        <li>В</li>
+
+        <li>А</li>
+
+        <li>Г</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>2
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q7" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 7
+            <a class="anchor-link" aria-label="Anchor" href="#q7">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие:<br><br>1<br><br>Модель, в которую входят параметры, доступные к изменению для достижения заданной цели.<br><br>А<br><br>Формализация<br><br>2<br><br>Процесс замены реального объекта его формальным описанием.<br><br>Б<br><br>Выживание<br><br>3<br><br>Вид фрактала, получаемый с помощью нелинейных процессов в n-мерных пространствах.<br><br>В<br><br>Оптимизационная модель<br><br>4<br><br>Правило игры «Жизнь», по которому клетка с тремя соседями остается жить.<br><br>Г<br><br>Алгебраический фрактал<br><br>5<br><br>Свойство последовательности псевдослучайных чисел, позволяющее точно воспроизвести поток чисел.<br><br>Д<br><br>Воспроизводимость<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>5</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>Д</li>
+
+        <li>Г</li>
+
+        <li>Б</li>
+
+        <li>А</li>
+
+        <li>В</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>5
+            <ul>
+
+                <li>Д (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q8" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 8
+            <a class="anchor-link" aria-label="Anchor" href="#q8">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие типов задач DL:<br><br>1<br><br>Классификация<br><br>А<br><br>Разметка каждого пикселя<br><br>2<br><br>Регрессия<br><br>Б<br><br>Предсказание непрерывного значения<br><br>3<br><br>Сегментация<br><br>В<br><br>Создание новых данных<br><br>4<br><br>Генерация<br><br>Г<br><br>Отнесение объекта к классу<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>В</li>
+
+        <li>Б</li>
+
+        <li>А</li>
+
+        <li>Г</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>1
+            <ul>
+
+                <li>Г (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>А (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>В (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>Б (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q9" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 9
+            <a class="anchor-link" aria-label="Anchor" href="#q9">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Среди представленных ниже понятий выберите свойства информации:<br><br>А) Вероятность<br><br>Б) Понятность<br><br>В) Решаемость<br><br>Г) Достоверность<br><br>Д) Актуальность</p>
+
+
+        <input type="checkbox" class="task-list-item-checkbox" disabled="">
+
+
+            Д
+
+    <br>
+
+
+        <input type="checkbox" class="task-list-item-checkbox" disabled="">
+
+
+            В
+
+    <br>
+
+
+        <input type="checkbox" class="task-list-item-checkbox" disabled="">
+
+
+            Г
+
+    <br>
+
+
+        <input type="checkbox" class="task-list-item-checkbox" disabled="">
+
+
+            Б
+
+    <br>
+
+
+        <input type="checkbox" class="task-list-item-checkbox" disabled="">
+
+
+            А
+
+    <br>
+
+
+<p>Статистика: </p>
+
+
+    <table class="table table-bordered table-striped">
+
+    <thead>
+    <tr>
+      <th>Вариант ответа</th>
+      <th style="text-align:right;">За</th>
+      <th style="text-align:right;">Против</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr>
+      <td>Д</td>
+      <td style="text-align:right;">1</td>
+      <td style="text-align:right;">0</td>
+    </tr>
+
+    <tr>
+      <td>В</td>
+      <td style="text-align:right;">0</td>
+      <td style="text-align:right;">1</td>
+    </tr>
+
+    <tr>
+      <td>Г</td>
+      <td style="text-align:right;">1</td>
+      <td style="text-align:right;">0</td>
+    </tr>
+
+    <tr>
+      <td>Б</td>
+      <td style="text-align:right;">1</td>
+      <td style="text-align:right;">0</td>
+    </tr>
+
+    <tr>
+      <td>А</td>
+      <td style="text-align:right;">0</td>
+      <td style="text-align:right;">1</td>
+    </tr>
+
+    </tbody>
+
+    </table>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q10" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 10
+            <a class="anchor-link" aria-label="Anchor" href="#q10">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие:<br><br>1<br><br>Процесс, при котором модель проверяется на тестовой задаче с известным ответом.<br><br>А<br><br>Указательный атрибут<br><br>2<br><br>Атрибут, значения которого могут служить идентификатором экземпляра объекта.<br><br>Б<br><br>Отладка<br><br>3<br><br>Вид имитационного моделирования, рассматривающий только основные события системы.<br><br>В<br><br>Принцип простоты<br><br>4<br><br>Принцип, согласно которому из двух моделей выбирается более простая.<br><br>Г<br><br>Дискретно-событийное моделирование<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>Г</li>
+
+        <li>А</li>
+
+        <li>Б</li>
+
+        <li>В</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>1
+            <ul>
+
+                <li>Б (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>Г (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>А (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>В (выбрали 2, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q11" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 11
+            <a class="anchor-link" aria-label="Anchor" href="#q11">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие архитектур нейронных сетей:<br><br>1<br><br>CNN<br><br>А<br><br>Обработка последовательностей (тексты, речь)<br><br>2<br><br>RNN<br><br>Б<br><br>Сжатие и восстановление данных<br><br>3<br><br>Transformer<br><br>В<br><br>Извлечение признаков из изображений<br><br>4<br><br>Autoencoder<br><br>Г<br><br>Работа с вниманием и параллельными вычислениями<br><br>&nbsp;<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>А</li>
+
+        <li>В</li>
+
+        <li>Г</li>
+
+        <li>Б</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>4
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q12" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 12
+            <a class="anchor-link" aria-label="Anchor" href="#q12">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p>Установите соответствие между типом алгоритма и его примером:<br><br>1<br><br>Линейный<br><br>А<br><br>Вычисление факториала через вызов самого себя<br><br>2<br><br>Разветвляющийся<br><br>Б<br><br>Проверка числа на четность с условием<br><br>3<br><br>Циклический<br><br>В<br><br>Последовательное вычисление суммы<br><br>4<br><br>Рекурсивный<br><br>Г<br><br>Повторение команды до вычисления условия<br><br></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>А</li>
+
+        <li>Б</li>
+
+        <li>Г</li>
+
+        <li>В</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>3
+            <ul>
+
+                <li>Г (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>4
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+            <div class="row">
+
+
+<div id="q13" class="card col-md-7 mb-4 mx-auto px-0">
+    <div class="card-header">
+        <h5 class="card-title">
+            Вопрос 13
+            <a class="anchor-link" aria-label="Anchor" href="#q13">
+
+            </a>
+        </h5>
+    </div>
+    <div class="card-body">
+
+            <p></p>
+            <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+          <th>Левая часть</th>
+          <th>Правая часть</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+              <td>3</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>
+
+                    <b>[нет рекомендации]</b>
+
+              </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<p>Варианты правой части:</p>
+
+<ul>
+
+        <li>В</li>
+
+        <li>Б</li>
+
+        <li>А</li>
+
+</ul>
+
+<p>Статистика:</p>
+
+
+<ul>
+
+        <li>3
+            <ul>
+
+                <li>Б (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>2
+            <ul>
+
+                <li>А (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+        <li>1
+            <ul>
+
+                <li>В (выбрали 1, правильность неизвестна)</li>
+
+            </ul>
+        </li>
+
+</ul>
+
+
+    </div>
+
+</div>
+            </div>
+
+
+    <p>
+    </p></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<script>
+    hljs.highlightAll();
+    hljs.initLineNumbersOnLoad();
+    hljs.addPlugin(new CopyButtonPlugin());
+</script>
+
+
+  </div>
 </div>
         `);
 });
