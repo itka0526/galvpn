@@ -45,8 +45,8 @@ app.use(
     })
 );
 
-app.get("/", (req, res) => {
-    return res.send(req.t("index"));
+app.get("/", (_, res) => {
+    return res.redirect("https://docs.google.com/document/d/1-M-ckOUBmcF_TLpJVLm7TSXCByLxcHvHQeLasaZtzaQ/edit?usp=sharing");
 });
 
 app.get("/cron", async (_, res) => {
