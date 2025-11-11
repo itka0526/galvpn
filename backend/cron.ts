@@ -1,6 +1,6 @@
 import cron from "node-cron";
 import { freezeKeys, notifyExpiration } from "./jobs/freezeKeys";
-import { findJobsAbove400 } from "./jobs/yandexSmena";
+// import { findJobsAbove400 } from "./jobs/yandexSmena";
 
 console.log("Cron jobs are running...");
 
