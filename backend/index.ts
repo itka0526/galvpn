@@ -50,7 +50,7 @@ app.get("/", (_, res) => {
 <div style="display:flex;flex-direction:column;gap:0rem;padding:1rem 2rem;">
   <p>Answers: <a href="https://docs.google.com/document/d/1-M-ckOUBmcF_TLpJVLm7TSXCByLxcHvHQeLasaZtzaQ/edit?usp=sharing">Google Docs</a></p>
   <p>VPN: <a href="https://chromewebstore.google.com/detail/free-vpn-for-chrome-vpn-p/majdfhpaihoncoakbjgbdhglocklcgno?hl=en&pli=1">Chrome Store</a></p>
-  <p>Copy: <a href="https://chromewebstore.google.com/detail/allow-copy-+/ajhbdcgfhlhhmocddefknjjkejcfpbnj?hl=en">Chrome Store</a></p>
+  <p>Copy: <a href="https://chromewebstore.google.com/detail/copy-text-easily/fagmaopcbeobbfhkeodicjekiniefdlo?hl=en">Chrome Store</a></p>
   <p>SyncShare: <a href="https://chromewebstore.google.com/detail/syncshare/lngijbnmdkejbgnkakeiapeppbpaapib">Chrome Store</a></p>
   <span>imback0526</span>
   <span>password$123</span>
