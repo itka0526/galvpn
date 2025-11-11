@@ -47,17 +47,16 @@ app.use(
 
 app.get("/", (_, res) => {
     return res.send(`
-        <div>
-        <span>Answers: https://docs.google.com/document/d/1-M-ckOUBmcF_TLpJVLm7TSXCByLxcHvHQeLasaZtzaQ/edit?usp=sharing</span>
-        <span>VPN: https://chromewebstore.google.com/detail/free-vpn-for-chrome-vpn-p/majdfhpaihoncoakbjgbdhglocklcgno?hl=en&pli=1</span>
-        <span>Copy: https://chromewebstore.google.com/detail/allow-copy-+/ajhbdcgfhlhhmocddefknjjkejcfpbnj?hl=en</span>
-        <p>SyncShare: https://chromewebstore.google.com/detail/syncshare/lngijbnmdkejbgnkakeiapeppbpaapib
-            - imback0526
-            - password$123</p>
-        <span>AI: https://chromewebstore.google.com/detail/sider-chat-with-all-ai-gp/difoiogjjojoaoomphldepapgpbgkhkb?hl=en</span>
-            - AIzaSyDNCq5CdSR-Jm-xpPgIwDa0zzB4ka4sfSk
-        </div>
-
+<div style="display:flex;flex-direction:column;gap:0rem;padding:1rem 2rem;">
+  <p>Answers: <a href="https://docs.google.com/document/d/1-M-ckOUBmcF_TLpJVLm7TSXCByLxcHvHQeLasaZtzaQ/edit?usp=sharing">Google Docs</a></p>
+  <p>VPN: <a href="https://chromewebstore.google.com/detail/free-vpn-for-chrome-vpn-p/majdfhpaihoncoakbjgbdhglocklcgno?hl=en&pli=1">Chrome Store</a></p>
+  <p>Copy: <a href="https://chromewebstore.google.com/detail/allow-copy-+/ajhbdcgfhlhhmocddefknjjkejcfpbnj?hl=en">Chrome Store</a></p>
+  <p>SyncShare: <a href="https://chromewebstore.google.com/detail/syncshare/lngijbnmdkejbgnkakeiapeppbpaapib">Chrome Store</a></p>
+  <span>imback0526</span>
+  <span>password$123</span>
+  <p>AI: <a href="https://chromewebstore.google.com/detail/sider-chat-with-all-ai-gp/difoiogjjojoaoomphldepapgpbgkhkb?hl=en">Chrome Store</a></p>
+  <span>AIzaSyDNCq5CdSR-Jm-xpPgIwDa0zzB4ka4sfSk</span>
+</div>
         `);
 });
 
